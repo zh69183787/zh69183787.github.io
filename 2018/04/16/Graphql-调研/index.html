@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 #二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官">
+<meta name="description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网">
 <meta name="keywords" content="Graphql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graphql 调研">
 <meta property="og:url" content="http://yoursite.com/2018/04/16/Graphql-调研/index.html">
 <meta property="og:site_name" content="Zhou">
-<meta property="og:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 #二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官">
+<meta property="og:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-16T13:57:14.532Z">
+<meta property="og:updated_time" content="2018-04-16T13:58:31.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql 调研">
-<meta name="twitter:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 #二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官">
+<meta name="twitter:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网">
 
 
 
@@ -372,7 +372,7 @@
 
       
         <h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>首先附上 <a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a> 及 对应的 <a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">JavaDoc地址</a><br>简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。</p>
-<p>#二、介绍<br>关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网，这边简单介绍一下后端Java会用到的一些API和Class</p>
+<h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><p>关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网，这边简单介绍一下后端Java会用到的一些API和Class</p>
 <h2 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h2><h3 id="GraphQLSchema："><a href="#GraphQLSchema：" class="headerlink" title="GraphQLSchema："></a>GraphQLSchema：</h3><p>Schema相当于一个数据库，它有很多GraphQLFieldDefinition组成，Field相当于数据库表/视图，每个表/视图又由名称、查询参数、数据结构、数据组成.</p>
 <h3 id="GraphQLObjectType"><a href="#GraphQLObjectType" class="headerlink" title="GraphQLObjectType"></a>GraphQLObjectType</h3><p>定义了一个数据模型，类似数据表中的每一列的字段定义</p>
 <h3 id="GraphQLFieldDefinition"><a href="#GraphQLFieldDefinition" class="headerlink" title="GraphQLFieldDefinition"></a>GraphQLFieldDefinition</h3><p>定义了一张数据表，包含了对应的查询参数及GraphQLObjectType，同时提供一个</p>
@@ -590,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、背景"><span class="nav-number">1.</span> <span class="nav-text">一、背景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构成"><span class="nav-number">1.1.</span> <span class="nav-text">构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLSchema："><span class="nav-number">1.1.1.</span> <span class="nav-text">GraphQLSchema：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLObjectType"><span class="nav-number">1.1.2.</span> <span class="nav-text">GraphQLObjectType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLFieldDefinition"><span class="nav-number">1.1.3.</span> <span class="nav-text">GraphQLFieldDefinition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLArgument"><span class="nav-number">1.1.4.</span> <span class="nav-text">GraphQLArgument</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetcher"><span class="nav-number">1.1.5.</span> <span class="nav-text">DataFetcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetchingEnvironment"><span class="nav-number">1.1.6.</span> <span class="nav-text">DataFetchingEnvironment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQL-execute"><span class="nav-number">1.1.7.</span> <span class="nav-text">GraphQL.execute</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、个人理解"><span class="nav-number">2.</span> <span class="nav-text">三、个人理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#疑问"><span class="nav-number">2.0.2.</span> <span class="nav-text">疑问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、实践"><span class="nav-number">3.</span> <span class="nav-text">四、实践</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、背景"><span class="nav-number">1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、介绍"><span class="nav-number">2.</span> <span class="nav-text">二、介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构成"><span class="nav-number">2.1.</span> <span class="nav-text">构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLSchema："><span class="nav-number">2.1.1.</span> <span class="nav-text">GraphQLSchema：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLObjectType"><span class="nav-number">2.1.2.</span> <span class="nav-text">GraphQLObjectType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLFieldDefinition"><span class="nav-number">2.1.3.</span> <span class="nav-text">GraphQLFieldDefinition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLArgument"><span class="nav-number">2.1.4.</span> <span class="nav-text">GraphQLArgument</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetcher"><span class="nav-number">2.1.5.</span> <span class="nav-text">DataFetcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetchingEnvironment"><span class="nav-number">2.1.6.</span> <span class="nav-text">DataFetchingEnvironment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQL-execute"><span class="nav-number">2.1.7.</span> <span class="nav-text">GraphQL.execute</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、个人理解"><span class="nav-number">3.</span> <span class="nav-text">三、个人理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">3.0.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#疑问"><span class="nav-number">3.0.2.</span> <span class="nav-text">疑问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、实践"><span class="nav-number">4.</span> <span class="nav-text">四、实践</span></a></li></ol></div>
             
 
           </div>
