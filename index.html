@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  941
+                  943
                 </span>
               
 
@@ -379,16 +379,22 @@
 <h4 id="GraphQLArgument"><a href="#GraphQLArgument" class="headerlink" title="GraphQLArgument"></a>GraphQLArgument</h4><p>每一个GraphQLFieldDefinition可提供的查询条件，可设置类型及字段名称</p>
 <h4 id="DataFetcher"><a href="#DataFetcher" class="headerlink" title="DataFetcher"></a>DataFetcher</h4><p>数据返回获取器，根据GraphQLArgument中的参数，实现获取接口，获取真正的结果值并返回。</p>
 <h4 id="DataFetchingEnvironment"><a href="#DataFetchingEnvironment" class="headerlink" title="DataFetchingEnvironment"></a>DataFetchingEnvironment</h4><p>数据获取上下文，可以拿到对应的查询参数</p>
-<h4 id="GraphQL-execute"><a href="#GraphQL-execute" class="headerlink" title="GraphQL.execute"></a>GraphQL.execute</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GraphQL graphQL = GraphQL.newGraphQL(schema).build();</span><br><span class="line">System.out.println(graphQL.execute(<span class="string">"&#123;person(id:1)&#123;id,name,dogs&#123;id&#125;&#125;&#125;"</span>).getData());</span><br><span class="line">System.out.println(graphQL.execute(<span class="string">"&#123;person(id:2)&#123;id,name,dogs&#123;id,name&#125;&#125;&#125;"</span>).getData());</span><br><span class="line">System.out.println(graphQL.execute(<span class="string">"&#123;person(id:3)&#123;id,name,dogs&#123;id,name,age&#125;&#125;&#125;"</span>).getData());</span><br></pre></td></tr></table></figure>
+<h4 id="GraphQL-execute"><a href="#GraphQL-execute" class="headerlink" title="GraphQL.execute"></a>GraphQL.execute</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    GraphQL graphQL = GraphQL.newGraphQL(schema).build();</span><br><span class="line">    System.out.println(graphQL.execute(<span class="string">"&#123;person(id:1)&#123;id,name,dogs&#123;id&#125;&#125;&#125;"</span>).getData());</span><br><span class="line">    System.out.println(graphQL.execute(<span class="string">"&#123;person(id:2)&#123;id,name,dogs&#123;id,name&#125;&#125;&#125;"</span>).getData());</span><br><span class="line">    System.out.println(graphQL.execute(<span class="string">"&#123;person(id:3)&#123;id,name,dogs&#123;id,name,age&#125;&#125;&#125;"</span>).getData());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>具体参考范例<a href="https://blog.csdn.net/q15150676766/article/details/74618398" target="_blank" rel="noopener">graphql学习（四）GraphQL和SpringMVC 的整合</a></p>
 <h1 id="三、个人理解"><a href="#三、个人理解" class="headerlink" title="三、个人理解"></a>三、个人理解</h1><p>官网上看了一下Hello World的Demo和他人基于Graphql写的一些blog，简单总结了一些优缺点和使用上的疑问：</p>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<ul>
+<li>优点</li>
+</ul>
+<ol>
 <li>明确清晰的数据模型，维护方便</li>
 <li>前端-接口简化，更少的网络请求</li>
 <li>更好的API迭代</li>
 </ol>
 <p>可以看出，优点中大部分都是对前端开发有利，那后端改造的优势是什么呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层类似数据库的DDL+DML的抽象和封装。<br>Graphql使用了自身API构造了和数据库雷同的DDL，包含表结构、行列信息，同时像DML一样提供了Query查询接口的入参及对应返回，形式极似Sql的select语句。但如此一来，在使用上就有以下的疑问了</p>
-<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><ol>
+<ul>
+<li>疑问</li>
+</ul>
+<ol>
 <li>官网标榜的精确数据返回和一个请求如何实现？表面上看似返回的内容会随着请求实体变化，但实际上，由于无法确定前端查询的内容及参数，对于后端来说，还是需要获取全量的数据结果，只是在构建Graphql自己的“数据库”时定义不同的查询schema罢了。原先的“select a，b”，在Graphql上不就变成了“select * ” ？ 这样对数据库及其他内部服务的压力必然会增大，内存&amp;缓存解决？</li>
 <li>其次，对于一个完整的系统，Graphql要求的数据模型必然需要对业务精确的理解，需要提前定义完整的数据结构，每一个返回的实体都必须单独定义一个Schema及配套的查询方法。这样才能准确的定义服务端的Schema，供前端使用。</li>
 <li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊，由于开放了“select *”的功能，是否会造成全量的字段查询导致数据暴露</li>
@@ -741,7 +747,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共955字</span>
+  <span class="post-count">博客全站共957字</span>
 </div>
 
         
