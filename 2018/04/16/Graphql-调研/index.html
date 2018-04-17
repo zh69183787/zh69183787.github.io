@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网">
+<meta name="description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
 <meta name="keywords" content="Graphql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graphql 调研">
 <meta property="og:url" content="http://yoursite.com/2018/04/16/Graphql-调研/index.html">
 <meta property="og:site_name" content="Zhou">
-<meta property="og:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网">
+<meta property="og:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-17T07:46:20.563Z">
+<meta property="og:updated_time" content="2018-04-17T13:35:32.685Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql 调研">
-<meta name="twitter:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网">
+<meta name="twitter:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
 
 
 
@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,115
+                  1,271
                 </span>
               
 
@@ -372,7 +372,8 @@
 
       
         <h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>首先附上 <a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a> 及 对应的 <a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">JavaDoc地址</a><br>简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。</p>
-<h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><p>关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网，这边简单介绍一下后端Java会用到的一些API和Class</p>
+<h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><p>BFF：Backend for Frontends(以下简称BFF) 顾名思义，是为前端而存在的后端(服务)中间层。即传统的前后端分离应用中，前端应用直接调用后端服务，后端服务再根据相关的业务逻辑进行数据的增删查改等。那么引用了 BFF 之后，前端应用将直接和 BFF 通信，BFF 再和后端进行 API 通信，所以本质上来说，BFF 更像是一种“中间层”服务。下图看到没有BFF以及加入BFF的前后端项目上的主要区别。</p>
+<p>关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网，这边简单介绍一下后端Java会用到的一些API和Class</p>
 <h2 id="语言模式"><a href="#语言模式" class="headerlink" title="语言模式"></a>语言模式</h2><p>图语言，用<strong><em>“节点”</em></strong>和<strong><em>“关系”</em></strong>来描述一组数据结构，与常规数据库join的理念不同</p>
 <h2 id="操作分类"><a href="#操作分类" class="headerlink" title="操作分类"></a>操作分类</h2><p>query：查询<br>mutation：增删改</p>
 <h2 id="API构成"><a href="#API构成" class="headerlink" title="API构成"></a>API构成</h2><h3 id="GraphQLSchema："><a href="#GraphQLSchema：" class="headerlink" title="GraphQLSchema："></a>GraphQLSchema：</h3><p>Schema相当于一个数据库，它有很多GraphQLFieldDefinition组成，Field相当于数据库表/视图，每个表/视图又由名称、查询参数、数据结构、数据组成.</p>
@@ -404,8 +405,11 @@
 <li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊，由于开放了“select *”的功能，是否会造成全量的字段查询导致数据暴露</li>
 <li>文档比较匮乏，使用案例也较少</li>
 </ul>
-<h1 id="四、实践"><a href="#四、实践" class="headerlink" title="四、实践"></a>四、实践</h1><p>todo ~</p>
-
+<h1 id="四、实践"><a href="#四、实践" class="headerlink" title="四、实践"></a>四、实践</h1><h2 id="两种定义schema的方法"><a href="#两种定义schema的方法" class="headerlink" title="两种定义schema的方法"></a>两种定义schema的方法</h2><ul>
+<li>Java</li>
+<li>IDL</li>
+</ul>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3>
       
     </div>
     
@@ -600,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、背景"><span class="nav-number">1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、介绍"><span class="nav-number">2.</span> <span class="nav-text">二、介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言模式"><span class="nav-number">2.1.</span> <span class="nav-text">语言模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作分类"><span class="nav-number">2.2.</span> <span class="nav-text">操作分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API构成"><span class="nav-number">2.3.</span> <span class="nav-text">API构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLSchema："><span class="nav-number">2.3.1.</span> <span class="nav-text">GraphQLSchema：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLObjectType"><span class="nav-number">2.3.2.</span> <span class="nav-text">GraphQLObjectType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLFieldDefinition"><span class="nav-number">2.3.3.</span> <span class="nav-text">GraphQLFieldDefinition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLArgument"><span class="nav-number">2.3.4.</span> <span class="nav-text">GraphQLArgument</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetcher"><span class="nav-number">2.3.5.</span> <span class="nav-text">DataFetcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetchingEnvironment"><span class="nav-number">2.3.6.</span> <span class="nav-text">DataFetchingEnvironment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQL-execute"><span class="nav-number">2.3.7.</span> <span class="nav-text">GraphQL.execute</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、个人理解"><span class="nav-number">3.</span> <span class="nav-text">三、个人理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rest比较"><span class="nav-number">3.2.</span> <span class="nav-text">Rest比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问"><span class="nav-number">3.3.</span> <span class="nav-text">疑问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、实践"><span class="nav-number">4.</span> <span class="nav-text">四、实践</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、背景"><span class="nav-number">1.</span> <span class="nav-text">一、背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、介绍"><span class="nav-number">2.</span> <span class="nav-text">二、介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言模式"><span class="nav-number">2.1.</span> <span class="nav-text">语言模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作分类"><span class="nav-number">2.2.</span> <span class="nav-text">操作分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API构成"><span class="nav-number">2.3.</span> <span class="nav-text">API构成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLSchema："><span class="nav-number">2.3.1.</span> <span class="nav-text">GraphQLSchema：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLObjectType"><span class="nav-number">2.3.2.</span> <span class="nav-text">GraphQLObjectType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLFieldDefinition"><span class="nav-number">2.3.3.</span> <span class="nav-text">GraphQLFieldDefinition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQLArgument"><span class="nav-number">2.3.4.</span> <span class="nav-text">GraphQLArgument</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetcher"><span class="nav-number">2.3.5.</span> <span class="nav-text">DataFetcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DataFetchingEnvironment"><span class="nav-number">2.3.6.</span> <span class="nav-text">DataFetchingEnvironment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GraphQL-execute"><span class="nav-number">2.3.7.</span> <span class="nav-text">GraphQL.execute</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、个人理解"><span class="nav-number">3.</span> <span class="nav-text">三、个人理解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优点"><span class="nav-number">3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rest比较"><span class="nav-number">3.2.</span> <span class="nav-text">Rest比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#疑问"><span class="nav-number">3.3.</span> <span class="nav-text">疑问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、实践"><span class="nav-number">4.</span> <span class="nav-text">四、实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种定义schema的方法"><span class="nav-number">4.1.</span> <span class="nav-text">两种定义schema的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">4.1.1.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -645,7 +649,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共1.1k字</span>
+  <span class="post-count">博客全站共1.3k字</span>
 </div>
 
         
