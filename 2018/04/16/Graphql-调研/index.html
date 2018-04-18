@@ -88,7 +88,7 @@
 <meta property="og:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/graphql.png">
-<meta property="og:updated_time" content="2018-04-18T14:13:51.563Z">
+<meta property="og:updated_time" content="2018-04-18T14:16:38.040Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql 调研">
 <meta name="twitter:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
@@ -348,7 +348,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,579
+                  2,582
                 </span>
               
 
@@ -387,7 +387,10 @@
 <li>Interface</li>
 <li>Union</li>
 <li>InputObject //专门用于定义输入参数类型</li>
-<li>Enum<h3 id="Scalar"><a href="#Scalar" class="headerlink" title="Scalar"></a>Scalar</h3>graphql-java 支持以下基本数据类型（ Scalars）</li>
+<li>Enum</li>
+</ul>
+<h3 id="Scalar"><a href="#Scalar" class="headerlink" title="Scalar"></a>Scalar</h3><p>graphql-java 支持以下基本数据类型（ Scalars）</p>
+<ul>
 <li>GraphQLBoolean</li>
 <li>GraphQLInt</li>
 <li>GraphQLFloat</li>
@@ -397,8 +400,14 @@
 <li>GraphQLByte</li>
 <li>GraphQLFloat</li>
 <li>GraphQLBigDecimal</li>
-<li>GraphQLBigInteger<h3 id="Object-GraphQLObjectType"><a href="#Object-GraphQLObjectType" class="headerlink" title="Object/GraphQLObjectType"></a>Object/GraphQLObjectType</h3>对象字段类型，定义了一个数据模型，类似数据表中的每一列的字段定义<h3 id="Field-GraphQLFieldDefinition"><a href="#Field-GraphQLFieldDefinition" class="headerlink" title="Field/GraphQLFieldDefinition"></a>Field/GraphQLFieldDefinition</h3>字段类型定义，可用于对象类型中的字段设置，及请求对象上的特定字段（可根据该字段定义返回类型，匹配参数等）<h3 id="Arguments-GraphQLArgument"><a href="#Arguments-GraphQLArgument" class="headerlink" title="Arguments/GraphQLArgument"></a>Arguments/GraphQLArgument</h3>每一个GraphQLFieldDefinition可提供的查询条件，可设置参数值，用于查询匹配<h3 id="DataFetcher"><a href="#DataFetcher" class="headerlink" title="DataFetcher"></a>DataFetcher</h3>数据返回获取器，实现Field字段上的数据返回接口，可在environment中获取查询参数<h3 id="DataFetchingEnvironment"><a href="#DataFetchingEnvironment" class="headerlink" title="DataFetchingEnvironment"></a>DataFetchingEnvironment</h3>数据获取上下文，可以拿到对应的查询参数<h3 id="GraphQL-execute"><a href="#GraphQL-execute" class="headerlink" title="GraphQL.execute"></a>GraphQL.execute</h3>最终查询执行器<br>简易demo可参考范例<a href="https://blog.csdn.net/q15150676766/article/details/74618398" target="_blank" rel="noopener">graphql学习（四）GraphQL和SpringMVC 的整合</a></li>
+<li>GraphQLBigInteger</li>
 </ul>
+<h3 id="Object-GraphQLObjectType"><a href="#Object-GraphQLObjectType" class="headerlink" title="Object/GraphQLObjectType"></a>Object/GraphQLObjectType</h3><p>对象字段类型，定义了一个数据模型，类似数据表中的每一列的字段定义</p>
+<h3 id="Field-GraphQLFieldDefinition"><a href="#Field-GraphQLFieldDefinition" class="headerlink" title="Field/GraphQLFieldDefinition"></a>Field/GraphQLFieldDefinition</h3><p>字段类型定义，可用于对象类型中的字段设置，及请求对象上的特定字段（可根据该字段定义返回类型，匹配参数等）</p>
+<h3 id="Arguments-GraphQLArgument"><a href="#Arguments-GraphQLArgument" class="headerlink" title="Arguments/GraphQLArgument"></a>Arguments/GraphQLArgument</h3><p>每一个GraphQLFieldDefinition可提供的查询条件，可设置参数值，用于查询匹配</p>
+<h3 id="DataFetcher"><a href="#DataFetcher" class="headerlink" title="DataFetcher"></a>DataFetcher</h3><p>数据返回获取器，实现Field字段上的数据返回接口，可在environment中获取查询参数</p>
+<h3 id="DataFetchingEnvironment"><a href="#DataFetchingEnvironment" class="headerlink" title="DataFetchingEnvironment"></a>DataFetchingEnvironment</h3><p>数据获取上下文，可以拿到对应的查询参数</p>
+<h3 id="GraphQL-execute"><a href="#GraphQL-execute" class="headerlink" title="GraphQL.execute"></a>GraphQL.execute</h3><p>最终查询执行器<br>简易demo可参考范例<a href="https://blog.csdn.net/q15150676766/article/details/74618398" target="_blank" rel="noopener">graphql学习（四）GraphQL和SpringMVC 的整合</a></p>
 <h1 id="三、个人理解"><a href="#三、个人理解" class="headerlink" title="三、个人理解"></a>三、个人理解</h1><p>官网上看了一下Hello World的Demo和他人基于Graphql写的一些blog，简单总结了一些优缺点和使用上的疑问：</p>
 <h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
 <li>清晰的数据模型，字段强类型</li>
