@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Zhou">
 <meta property="og:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://graphql.cn/img/logo.svg">
-<meta property="og:updated_time" content="2018-04-18T08:50:43.375Z">
+<meta property="og:image" content="http://yoursite.com/2018/04/16/Graphql-调研/graphql.png">
+<meta property="og:updated_time" content="2018-04-18T08:52:26.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql 调研">
 <meta name="twitter:description" content="一、背景首先附上 Graphsql中文官网地址 及 对应的 JavaDoc地址简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。 二、介绍BFF：Backend for Frontends(以下简称BFF)">
-<meta name="twitter:image" content="http://graphql.cn/img/logo.svg">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/16/Graphql-调研/graphql.png">
 
 
 
@@ -373,7 +373,7 @@
       
 
       
-        <p><img src="http://graphql.cn/img/logo.svg" alt="avatar"></p>
+        <p><img src="graphql.png" alt=""></p>
 <h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>首先附上 <a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a> 及 对应的 <a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">JavaDoc地址</a><br>简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。</p>
 <h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><p>BFF：Backend for Frontends(以下简称BFF) 顾名思义，是为前端而存在的后端(服务)中间层。即传统的前后端分离应用中，前端应用直接调用后端服务，后端服务再根据相关的业务逻辑进行数据的增删查改等。那么引用了 BFF 之后，前端应用将直接和 BFF 通信，BFF 再和后端进行 API 通信，所以本质上来说，BFF 更像是一种“中间层”服务。下图看到没有BFF以及加入BFF的前后端项目上的主要区别。</p>
 <p>关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网，这边简单介绍一下后端Java会用到的一些API和Class</p>
