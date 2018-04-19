@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Zhou">
 <meta property="og:description" content="这一篇介绍一下GraphQL实际使用时的语法和一些要素 字段（Fields）请求对象上的特定字段，返回结果的数据字段可以是基本类型（String，Int），也可以是自定义对象类型123456789&amp;#123;  hero &amp;#123;    name    # 查询可以有备注！    friends &amp;#123;      name    &amp;#125;  &amp;#125;&amp;#125; 12345678">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T07:53:05.755Z">
+<meta property="og:updated_time" content="2018-04-19T07:55:26.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql学习(二)-查询和变更">
 <meta name="twitter:description" content="这一篇介绍一下GraphQL实际使用时的语法和一些要素 字段（Fields）请求对象上的特定字段，返回结果的数据字段可以是基本类型（String，Int），也可以是自定义对象类型123456789&amp;#123;  hero &amp;#123;    name    # 查询可以有备注！    friends &amp;#123;      name    &amp;#125;  &amp;#125;&amp;#125; 12345678">
@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,131
+                  1,146
                 </span>
               
 
@@ -396,7 +396,7 @@
 <h2 id="变更（Mutation）"><a href="#变更（Mutation）" class="headerlink" title="变更（Mutation）"></a>变更（Mutation）</h2><p>之前大部分涉及的都是数据查询，GraphQL中约定任何的写入操作通过Mutation来进行操作。和查询一样，如果一个变更操作后需要返回数据，也可以请求字段来作数据返回<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mutation CreateUser($vname: String!, $dogs: DogInput!) &#123;</span><br><span class="line">  create(userName: $vname, dogs: $dogs) &#123;</span><br><span class="line">    userName</span><br><span class="line">    dogs&#123;</span><br><span class="line">        dogName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"vname"</span>:<span class="string">"testUserName"</span>,</span><br><span class="line">    <span class="attr">"dogs"</span>:[</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"dogName"</span>:<span class="number">12345</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"dogName"</span>:<span class="number">12345</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上例中的dog变量并非GraphQL自带类型，它是一个<strong>输入对象类型</strong>，一种特殊的对象类型，可以当做参数传递，可以在Schema中了解更多自定义类型的信息。<br>注：一次查询中，可以发起多个Query（并行），也可以发起多个Mutation（串行）</p>
 <h2 id="内联片段（Inline-Fragments）：参见官网，用的比较少"><a href="#内联片段（Inline-Fragments）：参见官网，用的比较少" class="headerlink" title="内联片段（Inline Fragments）：参见官网，用的比较少"></a>内联片段（Inline Fragments）：参见官网，用的比较少</h2><h2 id="元字段（Meta-fields）"><a href="#元字段（Meta-fields）" class="headerlink" title="元字段（Meta fields）"></a>元字段（Meta fields）</h2><p>顾名思义，有一些内置参数，在我们不知道GraphQL服务会返回的数据结构，数据类型等、</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>介绍了基本的查询语法及可以使用到的一些常用功能，应该不难理解，而且在数据层面也都和一般的Rest API差不多，学习成本较低。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>介绍了基本的查询语法及可以使用到的一些常用功能，应该不难理解，而且在数据层面也都和一般的Rest API差不多，学习成本较低。下一次说一下我觉得最为重要的Schema。。</p>
 
       
     </div>
@@ -436,6 +436,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/19/Graphql学习(三)-Schema和类型/" rel="prev" title="Graphql学习(三)-Schema和类型">
+                Graphql学习(三)-Schema和类型 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -521,7 +525,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -637,7 +641,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共4.8k字</span>
+  <span class="post-count">博客全站共5.2k字</span>
 </div>
 
         
