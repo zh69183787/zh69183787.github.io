@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="这一篇介绍一下构建GraphQL服务，后端比较关注的一块为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。 对象类型和字段（Object  Types and Fields）对象类型定义：12345type Person&amp;#123;  nam">
+<meta name="description" content="这一篇介绍一下构建GraphQL的类型及定义，会被GraphQL整体结构有个大致的了解为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。 类型系统每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。 类型语言GraphQL 服务可以用任何语言编写，因为我们并不依赖于任何特定语言的句法句式（譬如">
 <meta name="keywords" content="Graphql">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graphql学习(三)-Schema和类型">
 <meta property="og:url" content="http://yoursite.com/2018/04/19/Graphql学习(三)-Schema和类型/index.html">
 <meta property="og:site_name" content="Zhou">
-<meta property="og:description" content="这一篇介绍一下构建GraphQL服务，后端比较关注的一块为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。 对象类型和字段（Object  Types and Fields）对象类型定义：12345type Person&amp;#123;  nam">
+<meta property="og:description" content="这一篇介绍一下构建GraphQL的类型及定义，会被GraphQL整体结构有个大致的了解为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。 类型系统每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。 类型语言GraphQL 服务可以用任何语言编写，因为我们并不依赖于任何特定语言的句法句式（譬如">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T11:10:25.668Z">
+<meta property="og:updated_time" content="2018-04-19T14:16:20.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql学习(三)-Schema和类型">
-<meta name="twitter:description" content="这一篇介绍一下构建GraphQL服务，后端比较关注的一块为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。 对象类型和字段（Object  Types and Fields）对象类型定义：12345type Person&amp;#123;  nam">
+<meta name="twitter:description" content="这一篇介绍一下构建GraphQL的类型及定义，会被GraphQL整体结构有个大致的了解为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。 类型系统每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。 类型语言GraphQL 服务可以用任何语言编写，因为我们并不依赖于任何特定语言的句法句式（譬如">
 
 
 
@@ -346,7 +346,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  442
+                  1,139
                 </span>
               
 
@@ -371,7 +371,9 @@
       
 
       
-        <p>这一篇介绍一下构建GraphQL服务，后端比较关注的一块<br>为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。</p>
+        <p>这一篇介绍一下构建GraphQL的类型及定义，会被GraphQL整体结构有个大致的了解<br>为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。</p>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的<strong>Schema</strong>验证并执行查询。</p>
+<h2 id="类型语言"><a href="#类型语言" class="headerlink" title="类型语言"></a>类型语言</h2><p>GraphQL 服务可以用任何语言编写，因为我们并不依赖于任何特定语言的句法句式（譬如 JavaScript）来与 GraphQL schema 沟通，我们定义了自己的简单语言，称之为 “GraphQL schema language” —— 它和 GraphQL 的查询语言很相似，让我们能够和 GraphQL schema 之间可以无语言差异地沟通。</p>
 <h2 id="对象类型和字段（Object-Types-and-Fields）"><a href="#对象类型和字段（Object-Types-and-Fields）" class="headerlink" title="对象类型和字段（Object  Types and Fields）"></a>对象类型和字段（Object  Types and Fields）</h2><p>对象类型定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type Person&#123;</span><br><span class="line">  name:String!</span><br><span class="line">  age:Int</span><br><span class="line">  dpgs:[dog]!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>Person是一个GraphQL对象类型，表示一个拥有一些字段的类型，类比于Java的Class</li>
@@ -385,8 +387,30 @@
 <p>这2个类型定义了每一个GraphQL查询的入口，如下一个查询<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">query&#123;</span><br><span class="line">  person(id:"2222")&#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>标识这个GraphQL服务需要一个Query类型，并且有person字段：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type Query&#123;</span><br><span class="line">  person(id: ID): Person</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>同样的变更（Mutation）操作也类似。</p>
-<h2 id="标量类型（Scalar-Types）"><a href="#标量类型（Scalar-Types）" class="headerlink" title="标量类型（Scalar Types）"></a>标量类型（Scalar Types）</h2><p>一个对象类型有自己的名字和字段，这些字段在一定情况下回解析到具体数据。这就是标量类型的来源：表示对应GraphQL查询的叶子节点</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+<h2 id="标量类型（Scalar-Types）"><a href="#标量类型（Scalar-Types）" class="headerlink" title="标量类型（Scalar Types）"></a>标量类型（Scalar Types）</h2><p>一个对象类型有自己的名字和字段，这些字段在一定情况下回解析到具体数据。这就是标量类型的来源：表示对应GraphQL查询的叶子节点。标量类型没有次级字段，是整棵查询树的叶子节点。后面会提到，查询字段数据的执行器直到遇到标量类型才会停止继续下挖。<br>GraphQL自带一组默认标量类型：</p>
+<ul>
+<li>Int、Float、String、Boolean 都与其他语言雷同</li>
+<li>ID：代表一个唯一标识符，序列化方式与String一致<br>我们可以使用GraphQL服务自定义标量类型，比如Date类型<br>scalar Date，实现中需要保证序列化、反序列化、验证方式都是可逆的</li>
+</ul>
+<h2 id="其他类型"><a href="#其他类型" class="headerlink" title="其他类型"></a>其他类型</h2><ul>
+<li>枚举 enum</li>
+<li>列表和为空 [xxx] !</li>
+<li>接口（Interfaces）：类比Java的interface，一个抽象类型，包含某些字段可以被实现<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface animal&#123;</span><br><span class="line">  id:ID!</span><br><span class="line">  name:String</span><br><span class="line">&#125;</span><br><span class="line">type human implements human&#123;</span><br><span class="line">  id:ID!</span><br><span class="line">  name:String</span><br><span class="line">  think:String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当要返回一组对象，但类型不同时，可以使用，但需要配合内联片段（…）。</p>
+<ul>
+<li>联合类型（union search = Male|Female|Child）可以返回对象类型的组合</li>
+<li>输入类型（Input Types）<br>有时候你需要在mutation操作中传入一个复杂对象，比如在Rest API中常用的json对象。输入对象看上去和常规对象一样，只是关键字不同<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input ActInput&#123;</span><br><span class="line">  actId:Int</span><br><span class="line">  actName:String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>你可以在变更操作中使用Input Type<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mutation createAct($act:ActInput!)&#123;</span><br><span class="line">  create(act:$act)&#123;</span><br><span class="line">    actId</span><br><span class="line">    actName</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"actId"</span>:<span class="number">123</span>,</span><br><span class="line">  <span class="attr">"actName"</span>:<span class="string">"asdsadsa"</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>:&#123;</span><br><span class="line">    <span class="attr">"create"</span>:&#123;</span><br><span class="line">      <span class="attr">"actId"</span>:<span class="number">123</span>,</span><br><span class="line">      <span class="attr">"actName"</span>:<span class="string">"asdsadsa"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在schema中不能混淆输入与输出对象类型。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>当我们查询一个字段时，如果该字段的返回值不是标量类型或者枚举类型，那么我们就需要显示的指名需要从这个字段中获取的具体数据。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  person</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>person是一个对象类型，如果不指名其中的name或者其他标量类型字段，这个查询就是无效的。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"errors"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"message"</span>: <span class="string">"Field \"person\" of type \"Person\" must have a selection of subfields. Did you mean \"person &#123; ... &#125;\"?"</span>,</span><br><span class="line">      <span class="attr">"locations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"line"</span>: <span class="number">3</span>,</span><br><span class="line">          <span class="attr">"column"</span>: <span class="number">3</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>整体来说，GraphQL的验证规则及语义十分繁琐，这方面的问题可以在实际使用中再去深入了解</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一章简单介绍了Schema的创建及一些GraphQL中的基础类型，为后续服务端编写提供了基础</p>
+
       
     </div>
     
@@ -425,6 +449,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/19/Graphql学习(四)-执行与自省/" rel="prev" title="Graphql学习(四)-执行与自省">
+                Graphql学习(四)-执行与自省 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -510,7 +538,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -581,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象类型和字段（Object-Types-and-Fields）"><span class="nav-number">1.</span> <span class="nav-text">对象类型和字段（Object  Types and Fields）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数（Arguments）"><span class="nav-number">2.</span> <span class="nav-text">参数（Arguments）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询和变更类型（Query-and-Mutation-Types）"><span class="nav-number">3.</span> <span class="nav-text">查询和变更类型（Query  and Mutation Types）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标量类型（Scalar-Types）"><span class="nav-number">4.</span> <span class="nav-text">标量类型（Scalar Types）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型系统"><span class="nav-number">1.</span> <span class="nav-text">类型系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型语言"><span class="nav-number">2.</span> <span class="nav-text">类型语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象类型和字段（Object-Types-and-Fields）"><span class="nav-number">3.</span> <span class="nav-text">对象类型和字段（Object  Types and Fields）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数（Arguments）"><span class="nav-number">4.</span> <span class="nav-text">参数（Arguments）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询和变更类型（Query-and-Mutation-Types）"><span class="nav-number">5.</span> <span class="nav-text">查询和变更类型（Query  and Mutation Types）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标量类型（Scalar-Types）"><span class="nav-number">6.</span> <span class="nav-text">标量类型（Scalar Types）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他类型"><span class="nav-number">7.</span> <span class="nav-text">其他类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">8.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -626,7 +654,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共5.2k字</span>
+  <span class="post-count">博客全站共8.4k字</span>
 </div>
 
         

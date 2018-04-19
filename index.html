@@ -259,6 +259,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(四)-执行与自省/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zs Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/kirua.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhou">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/19/Graphql学习(四)-执行与自省/" itemprop="url">Graphql学习(四)-执行与自省</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T21:50:02+08:00">
+                2018-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphql/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2,145
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>执行这一块可以说是GraphQL引擎的核心，执行查询&amp;变更请求，返回相对应的结果集（通常是JSON格式）。作为后端，是比较关注的一块。<br>参照官网的例子，来看看一个查询被执行的全过程<br>Schema定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">type Query &#123;</span><br><span class="line">  human(id: ID!): Human</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Human &#123;</span><br><span class="line">  name: String</span><br><span class="line">  appearsIn: [Episode]</span><br><span class="line">  starships: [Starship]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">enum Episode &#123;</span><br><span class="line">  NEWHOPE</span><br><span class="line">  EMPIRE</span><br><span class="line">  JEDI</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type Starship &#123;</span><br><span class="line">  name: String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>查询：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  human(id: 1002) &#123;</span><br><span class="line">    name</span><br><span class="line">    appearsIn</span><br><span class="line">    starships &#123;</span><br><span class="line">      name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"human"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Han Solo"</span>,</span><br><span class="line">      <span class="attr">"appearsIn"</span>: [</span><br><span class="line">        <span class="string">"NEWHOPE"</span>,</span><br><span class="line">        <span class="string">"EMPIRE"</span>,</span><br><span class="line">        <span class="string">"JEDI"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">"starships"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Millenium Falcon"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Imperial shuttle"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>可以将每个字段看做返回子类型的父类型函数和方法，事实上，这就是GraphQL的工作原理。每个类型的每个字段都有一个对应的Resolver（Java中是DataFetcher）,该函数由GraphQL服务端开发人员提供，当一个字段被查询并执行时，对应的Resolver被调用并生产出对应的值</strong><br>之前一章中也提到过，如果字段产生标量值，例如字符串或数字，则执行完成。如果一个字段产生一个对象，则该查询将继续执行该对象对应字段的解析器，直到生成标量值。GraphQL 查询始终以标量值结束。</p>
+<h2 id="根字段-amp-解析器"><a href="#根字段-amp-解析器" class="headerlink" title="根字段&amp;解析器"></a>根字段&amp;解析器</h2><p>每一个 GraphQL 服务端应用的顶层，必有一个类型代表着所有进入 GraphQL API 可能的入口点，我们将它称之为 Root 类型或 Query 类型。</p>
+<p>在这个例子中查询类型提供了一个字段 human，并且接受一个参数 id。这个字段的解析器可能请求了数据库之后通过构造函数返回一个 Human 对象。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Query: &#123;</span><br><span class="line">  human(obj, args, context) &#123;</span><br><span class="line">    return context.db.loadHumanByID(args.id).then(</span><br><span class="line">      userData =&gt; new Human(userData)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子使用了 JavaScript 语言，但 GraphQL 服务端应用可以被 多种语言实现。解析器函数接收 3 个参数：</p>
+<ul>
+<li>obj（Java中对应environment的getSource） 上一级对象，如果字段属于根节点查询类型通常不会被使用。</li>
+<li>args 可以提供在 GraphQL 查询中传入的参数。</li>
+<li>context 会被提供给所有解析器，并且持有重要的上下文信息比如当前登入的用户或者数据库访问对象。</li>
+</ul>
+<h2 id="异步解析器"><a href="#异步解析器" class="headerlink" title="异步解析器"></a>异步解析器</h2><p>让我们来分析一下在这个解析器函数中发生了什么。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">human(obj, args, context) &#123;</span><br><span class="line">  return context.db.loadHumanByID(args.id).then(</span><br><span class="line">    userData =&gt; new Human(userData)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>context 提供了一个数据库访问对象，用来通过查询中传递的参数 id 来查询数据，因为从数据库拉取数据的过程是一个异步操作，该方法返回了一个 Promise 对象，在 JavaScript 语言中 Promise 对象用来处理异步操作，但在许多语言中存在相同的概念，通常称作 Futures、Tasks 或者 Defferred。当数据库返回查询结果，我们就能构造并返回一个新的 Human 对象。<br>这里要注意的是，只有解析器能感知到 Promise 的进度，GraphQL 查询只关注一个包含着 name 属性的 human 字段是否返回，在执行期间如果异步操作没有完成，则 GraphQL 会一直等待下去，因此在这个环节需要关注异步处理上的优化。<br>Java中使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GraphQL graphQL = GraphQL.newGraphQL(schema).queryExecutionStrategy(<span class="keyword">new</span> AsyncExecutionStrategy())</span><br><span class="line">                .mutationExecutionStrategy(<span class="keyword">new</span> AsyncSerialExecutionStrategy()).build();</span><br><span class="line">        ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query1).build();</span><br><span class="line">        CompletableFuture&lt;ExecutionResult&gt; promise = graphQL.executeAsync(executionInput);</span><br><span class="line">        <span class="comment">//ExecutionResult executionResult = graphQL.execute(executionInput);</span></span><br><span class="line">        <span class="comment">//promise.join();</span></span><br><span class="line">        Future&lt;ExecutionResult&gt; f = promise.whenComplete((v, e) -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"Future: result "</span> + v.getData());</span><br><span class="line">            System.out.println(<span class="string">"Error: result "</span> + v.getErrors());</span><br><span class="line">            System.out.println(<span class="string">"Ex: result "</span> + v.getExtensions());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;);</span><br><span class="line">        promise.thenAccept(executionResult -&gt; &#123;</span><br><span class="line">            <span class="comment">// here you might send back the results as JSON over HTTP</span></span><br><span class="line">            System.out.println(<span class="string">"Future: result "</span> + executionResult.getData());</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>来进行异步处理。</p>
+<h2 id="不重要的解析器"><a href="#不重要的解析器" class="headerlink" title="不重要的解析器"></a>不重要的解析器</h2><p>现在 Human 对象已经生成了，但 GraphQL 还是会继续递归执行下去。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Human: &#123;</span><br><span class="line">  name(obj, args, context) &#123;</span><br><span class="line">    return obj.name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>GraphQL 服务端应用的业务取决于类型系统的结构。在 human 对象返回值之前，由于类型系统确定了 human 字段将返回一个 Human 对象，GraphQL 会根据类型系统预设好的 Human 类型决定如何解析字段。<br>在这个例子中，对 name 字段的处理非常的清晰，name 字段对应的解析器被调用的时候，解析器回调函数的 obj 参数是由上层回调函数生成的 new Human 对象。在这个案例中，我们希望 Human 对象会拥有一个 name 属性可以让我们直接读取。<br>事实上，许多 GraphQL 库可以让你省略这些简单的解析器，假定一个字段没有提供解析器时，那么应​​该从上层返回对象中读取和返回和这个字段同名的属性。</p>
+<h2 id="标量强制"><a href="#标量强制" class="headerlink" title="标量强制"></a>标量强制</h2><p>当 name 字段被处理后，appearsIn 和 starships 字段可以被同步执行， appearsIn 字段也可以有一个简单的解析器，但是让我们仔细看看。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Human: &#123;</span><br><span class="line">  appearsIn(obj) &#123;</span><br><span class="line">    return obj.appearsIn // returns [ 4, 5, 6 ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请注意，我们的类型系统声明 appearsIn 字段将返回具有已知值的枚举值，但是此函数返回数字！实际上，如果我们查看结果，我们将看到正在返回适当的枚举值。这是怎么回事？<br>这是一个强制标量的例子。因为类型系统已经被设定，所以解析器函数的返回值必须符合与类型系统对应的 API 规则的约束。在这个案例中，我们可能在服务器上定义了一个枚举类型，它在内部使用像是 4、5 和 6 这样的数字，但在 GraphQL 类型系统中将它们表示为枚举值。</p>
+<h2 id="列表解析器"><a href="#列表解析器" class="headerlink" title="列表解析器"></a>列表解析器</h2><p>我们已经看到一个字段返回上面的 appearsIn 字段的事物列表时会发生什么。它返回了枚举值的列表，因为这是系统期望的类型，列表中的每个项目被强制为适当的枚举值。让我们看下 startships 被解析的时候会发生什么？<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Human: &#123;</span><br><span class="line">  starships(obj, args, context) &#123;</span><br><span class="line">    return obj.starshipIDs.map(</span><br><span class="line">      id =&gt; context.db.loadStarshipByID(id).then(</span><br><span class="line">        shipData =&gt; new Starship(shipData)</span><br><span class="line">      )</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>解析器在这个字段中不仅仅是返回了一个 Promise 对象，它返回一个 Promises 列表。Human 对象具有他们正在驾驶的 Starships 的 ids 列表，但是我们需要通过这些 id 来获得真正的 Starship 对象。<br>GraphQL 将并发执行这些 Promise，当执行结束返回一个对象列表后，它将继续并发加载列表中每个对象的 name 字段。</p>
+<h2 id="产生结果"><a href="#产生结果" class="headerlink" title="产生结果"></a>产生结果</h2><p>当每个字段被解析时，结果被放置到键值映射中，字段名称（或别名）作为键值映射的键，解析器的值作为键值映射的值，这个过程从查询字段的底部叶子节点开始返回，直到根 Query 类型的起始节点。最后合并成为能够镜像到原始查询结构的结果，然后可以将其发送（通常为 JSON 格式）到请求的客户端。<br>让我们最后一眼看看原来的查询，看看这些解析函数如何产生一个结果：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  human(id: 1002) &#123;</span><br><span class="line">    name</span><br><span class="line">    appearsIn</span><br><span class="line">    starships &#123;</span><br><span class="line">      name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"human"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Han Solo"</span>,</span><br><span class="line">      <span class="attr">"appearsIn"</span>: [</span><br><span class="line">        <span class="string">"NEWHOPE"</span>,</span><br><span class="line">        <span class="string">"EMPIRE"</span>,</span><br><span class="line">        <span class="string">"JEDI"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">"starships"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Millenium Falcon"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Imperial shuttle"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h2><p>以往我们在前后端进行接口约定时，通常需要提供类似API文档之类的说明，但使用GraphQL的情况下，定义好的Schema会告诉我们当前服务支持哪些查询，这就是内省系统的作用。<br>具体可参考官网 <a href="http://graphql.cn/learn/introspection/" target="_blank" rel="noopener">内省</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>因为我是之后才看到执行这一章节的，原来对GraphQL-java服务器端的处理一知半解，认为DataFetcher在一个查询中只能应用在一个层级上，DataFetchingEnvironment对象始终只用来获取Arguments参数，并不知道还可以获取上一层的结果集。现在总算明白了，如果存在嵌套字段结构或查询的话，可以通过获取上层的结果集并进行自定义的数据操作来改变每一个字段，无论是针对标量类型还是自定义对象类型。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(三)-Schema和类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -344,7 +527,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  442
+                  1,139
                 </span>
               
 
@@ -371,7 +554,9 @@
       
         
           
-            <p>这一篇介绍一下构建GraphQL服务，后端比较关注的一块<br>为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的Schema验证并执行查询。</p>
+            <p>这一篇介绍一下构建GraphQL的类型及定义，会被GraphQL整体结构有个大致的了解<br>为了能够准确描述每一个查询会返回的结果、对象、字段，故引入了Schema。</p>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><p>每一个GraphQL服务都会定义一套类型，来描述服务可能返回的所有数据。当执行一个查询时，服务会根据定义的<strong>Schema</strong>验证并执行查询。</p>
+<h2 id="类型语言"><a href="#类型语言" class="headerlink" title="类型语言"></a>类型语言</h2><p>GraphQL 服务可以用任何语言编写，因为我们并不依赖于任何特定语言的句法句式（譬如 JavaScript）来与 GraphQL schema 沟通，我们定义了自己的简单语言，称之为 “GraphQL schema language” —— 它和 GraphQL 的查询语言很相似，让我们能够和 GraphQL schema 之间可以无语言差异地沟通。</p>
 <h2 id="对象类型和字段（Object-Types-and-Fields）"><a href="#对象类型和字段（Object-Types-and-Fields）" class="headerlink" title="对象类型和字段（Object  Types and Fields）"></a>对象类型和字段（Object  Types and Fields）</h2><p>对象类型定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type Person&#123;</span><br><span class="line">  name:String!</span><br><span class="line">  age:Int</span><br><span class="line">  dpgs:[dog]!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>Person是一个GraphQL对象类型，表示一个拥有一些字段的类型，类比于Java的Class</li>
@@ -385,8 +570,30 @@
 <p>这2个类型定义了每一个GraphQL查询的入口，如下一个查询<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">query&#123;</span><br><span class="line">  person(id:"2222")&#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>标识这个GraphQL服务需要一个Query类型，并且有person字段：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type Query&#123;</span><br><span class="line">  person(id: ID): Person</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>同样的变更（Mutation）操作也类似。</p>
-<h2 id="标量类型（Scalar-Types）"><a href="#标量类型（Scalar-Types）" class="headerlink" title="标量类型（Scalar Types）"></a>标量类型（Scalar Types）</h2><p>一个对象类型有自己的名字和字段，这些字段在一定情况下回解析到具体数据。这就是标量类型的来源：表示对应GraphQL查询的叶子节点</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2>
+<h2 id="标量类型（Scalar-Types）"><a href="#标量类型（Scalar-Types）" class="headerlink" title="标量类型（Scalar Types）"></a>标量类型（Scalar Types）</h2><p>一个对象类型有自己的名字和字段，这些字段在一定情况下回解析到具体数据。这就是标量类型的来源：表示对应GraphQL查询的叶子节点。标量类型没有次级字段，是整棵查询树的叶子节点。后面会提到，查询字段数据的执行器直到遇到标量类型才会停止继续下挖。<br>GraphQL自带一组默认标量类型：</p>
+<ul>
+<li>Int、Float、String、Boolean 都与其他语言雷同</li>
+<li>ID：代表一个唯一标识符，序列化方式与String一致<br>我们可以使用GraphQL服务自定义标量类型，比如Date类型<br>scalar Date，实现中需要保证序列化、反序列化、验证方式都是可逆的</li>
+</ul>
+<h2 id="其他类型"><a href="#其他类型" class="headerlink" title="其他类型"></a>其他类型</h2><ul>
+<li>枚举 enum</li>
+<li>列表和为空 [xxx] !</li>
+<li>接口（Interfaces）：类比Java的interface，一个抽象类型，包含某些字段可以被实现<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">interface animal&#123;</span><br><span class="line">  id:ID!</span><br><span class="line">  name:String</span><br><span class="line">&#125;</span><br><span class="line">type human implements human&#123;</span><br><span class="line">  id:ID!</span><br><span class="line">  name:String</span><br><span class="line">  think:String</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当要返回一组对象，但类型不同时，可以使用，但需要配合内联片段（…）。</p>
+<ul>
+<li>联合类型（union search = Male|Female|Child）可以返回对象类型的组合</li>
+<li>输入类型（Input Types）<br>有时候你需要在mutation操作中传入一个复杂对象，比如在Rest API中常用的json对象。输入对象看上去和常规对象一样，只是关键字不同<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input ActInput&#123;</span><br><span class="line">  actId:Int</span><br><span class="line">  actName:String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>你可以在变更操作中使用Input Type<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mutation createAct($act:ActInput!)&#123;</span><br><span class="line">  create(act:$act)&#123;</span><br><span class="line">    actId</span><br><span class="line">    actName</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"actId"</span>:<span class="number">123</span>,</span><br><span class="line">  <span class="attr">"actName"</span>:<span class="string">"asdsadsa"</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>:&#123;</span><br><span class="line">    <span class="attr">"create"</span>:&#123;</span><br><span class="line">      <span class="attr">"actId"</span>:<span class="number">123</span>,</span><br><span class="line">      <span class="attr">"actName"</span>:<span class="string">"asdsadsa"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在schema中不能混淆输入与输出对象类型。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>当我们查询一个字段时，如果该字段的返回值不是标量类型或者枚举类型，那么我们就需要显示的指名需要从这个字段中获取的具体数据。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  person</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>person是一个对象类型，如果不指名其中的name或者其他标量类型字段，这个查询就是无效的。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"errors"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"message"</span>: <span class="string">"Field \"person\" of type \"Person\" must have a selection of subfields. Did you mean \"person &#123; ... &#125;\"?"</span>,</span><br><span class="line">      <span class="attr">"locations"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"line"</span>: <span class="number">3</span>,</span><br><span class="line">          <span class="attr">"column"</span>: <span class="number">3</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>整体来说，GraphQL的验证规则及语义十分繁琐，这方面的问题可以在实际使用中再去深入了解</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这一章简单介绍了Schema的创建及一些GraphQL中的基础类型，为后续服务端编写提供了基础</p>
+
           
         
       
@@ -519,7 +726,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,146
+                  1,432
                 </span>
               
 
@@ -570,7 +777,11 @@
 <p>这样整体的返回结果中就不会包含dogs字段，可以使用的指令有：<br>@include(if: Boolean) 仅在参数为 true 时，包含此字段。<br>@skip(if: Boolean) 如果参数为 true，跳过此字段。</p>
 <h2 id="变更（Mutation）"><a href="#变更（Mutation）" class="headerlink" title="变更（Mutation）"></a>变更（Mutation）</h2><p>之前大部分涉及的都是数据查询，GraphQL中约定任何的写入操作通过Mutation来进行操作。和查询一样，如果一个变更操作后需要返回数据，也可以请求字段来作数据返回<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mutation CreateUser($vname: String!, $dogs: DogInput!) &#123;</span><br><span class="line">  create(userName: $vname, dogs: $dogs) &#123;</span><br><span class="line">    userName</span><br><span class="line">    dogs&#123;</span><br><span class="line">        dogName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"vname"</span>:<span class="string">"testUserName"</span>,</span><br><span class="line">    <span class="attr">"dogs"</span>:[</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"dogName"</span>:<span class="number">12345</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"dogName"</span>:<span class="number">12345</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上例中的dog变量并非GraphQL自带类型，它是一个<strong>输入对象类型</strong>，一种特殊的对象类型，可以当做参数传递，可以在Schema中了解更多自定义类型的信息。<br>注：一次查询中，可以发起多个Query（并行），也可以发起多个Mutation（串行）</p>
-<h2 id="内联片段（Inline-Fragments）：参见官网，用的比较少"><a href="#内联片段（Inline-Fragments）：参见官网，用的比较少" class="headerlink" title="内联片段（Inline Fragments）：参见官网，用的比较少"></a>内联片段（Inline Fragments）：参见官网，用的比较少</h2><h2 id="元字段（Meta-fields）"><a href="#元字段（Meta-fields）" class="headerlink" title="元字段（Meta fields）"></a>元字段（Meta fields）</h2><p>顾名思义，有一些内置参数，在我们不知道GraphQL服务会返回的数据结构，数据类型等、</p>
+<h2 id="内联片段（Inline-Fragments）"><a href="#内联片段（Inline-Fragments）" class="headerlink" title="内联片段（Inline Fragments）"></a>内联片段（Inline Fragments）</h2><p>参见官网，用的比较少，如果你查询的字段返回的是接口或者联合类型，那么你可能需要使用内联片段来取出下层具体类型的数据<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">query HeroForEpisode($ep: Episode!) &#123;</span><br><span class="line">  hero(episode: $ep) &#123;</span><br><span class="line">    name</span><br><span class="line">    ... on Droid &#123;</span><br><span class="line">      primaryFunction</span><br><span class="line">    &#125;</span><br><span class="line">    ... on Human &#123;</span><br><span class="line">      height</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variables:</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"ep"</span>:<span class="string">"dasdsad"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果要请求具体类型上的字段，你需要使用一个类型条件内联片段。因为第一个片段标注为 … on Droid，primaryFunction 仅在 hero 返回的 Character 为 Droid 类型时才会执行。同理适用于 Human 类型的 height 字段。</p>
+<h2 id="片段（Fragement）"><a href="#片段（Fragement）" class="headerlink" title="片段（Fragement）"></a>片段（Fragement）</h2><p>与内连片段类似，通常在查询中如果有大量重复字段的话，会进行使用<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  leftComparison: hero(episode: EMPIRE) &#123;</span><br><span class="line">    ...comparisonFields</span><br><span class="line">  &#125;</span><br><span class="line">  rightComparison: hero(episode: JEDI) &#123;</span><br><span class="line">    ...comparisonFields</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fragment comparisonFields on Character &#123;</span><br><span class="line">  name</span><br><span class="line">  appearsIn</span><br><span class="line">  friends &#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可以看到上面的查询如何漂亮地重复了字段。片段的概念经常用于将复杂的应用数据需求分割成小块，特别是你要将大量不同片段的 UI 组件组合成一个初始数据获取的时候。</p>
+<h2 id="元字段（Meta-fields）"><a href="#元字段（Meta-fields）" class="headerlink" title="元字段（Meta fields）"></a>元字段（Meta fields）</h2><p>顾名思义，有一些内置参数，在我们不知道GraphQL服务会返回的数据结构，数据类型等、</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>介绍了基本的查询语法及可以使用到的一些常用功能，应该不难理解，而且在数据层面也都和一般的Rest API差不多，学习成本较低。下一次说一下我觉得最为重要的Schema。。</p>
 
           
@@ -1238,7 +1449,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1338,7 +1549,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共5.2k字</span>
+  <span class="post-count">博客全站共8.4k字</span>
 </div>
 
         
