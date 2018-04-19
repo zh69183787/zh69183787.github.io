@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  860
+                  829
                 </span>
               
 
@@ -374,7 +374,7 @@
             <p><img src="/images/graphql.png" alt=""><br>这一篇章简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
 <p>GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。<br>以上内容摘抄自官网。简单说一下我的理解：可以说是Web服务的一种新的架构和规范，并且在FaceBook、gitHub、Twitter中均已使用。对比现在业务使用的Restful来说，有下列优势：</p>
 <ul>
-<li>单endPoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
+<li>单endpoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
 <li>清晰的数据模型，字段强类型</li>
 <li>按需获取，减少网络请求，无冗余</li>
 <li>API迭代顺畅，无须版本化</li>
@@ -387,12 +387,12 @@
 <li>返回处理：Rest有多种httpCode及Status，GraphQL只有200响应，错误内容需要在结果集中特殊获取</li>
 <li>版本号：Rest使用V1、V2，GraphQL可根据Schema自行扩展</li>
 </ul>
-<p>可以看出，优点中大部分都是对前端开发有利，那后端改造的优势是什么呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层类似数据库的DDL+DML的抽象和封装。<br>Graphql使用了自身API构造了和数据库雷同的DDL，包含表结构（整体schema）、可查询字段（Field）、行列信息（Object），可变入参（Variable），形式极似Sql的select语句。但如此一来，在使用上就有以下的疑问了</p>
-<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ul>
-<li>官网标榜的精确数据返回和一个请求如何实现？表面上看似返回的内容会随着请求实体变化，但实际上，由于无法确定前端查询的内容及参数，对于后端来说，还是需要获取全量的数据结果，只是在构建Graphql自己的“数据库”时定义不同的查询schema罢了。原先的“select a，b”，在Graphql上不就变成了“select * ” ？ 这样对数据库及其他内部服务的压力必然会增大，内存&amp;缓存解决？</li>
-<li>其次，对于一个完整的系统，Graphql要求的数据模型必然需要对业务精确的理解，需要提前定义完整的数据结构，每一个返回的实体都必须单独定义一个Schema及配套的查询方法。这样才能准确的定义服务端的Schema，供前端使用。</li>
-<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊，由于开放了“select *”的功能，是否会造成全量的字段查询导致数据暴露</li>
-<li>文档比较匮乏，使用案例也较少</li>
+<p>可以看出，GraphQL对前端开发来说帮助巨大，减少了很多工作量。但为了配合使用，服务器端需要怎么协同，并有什么好处呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层使用GraphQL引擎对已获取的结果数据再做一次包装。</p>
+<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><ul>
+<li>可以预见，服务端在改造时，数据获取层不会有太大的工作量，但由于只有一个endpoint，在业务逻辑层可能需要拼接原来多个接口返回的数据。比如个人主页的访问，原本需要a请求返回个人信息，b请求返回朋友关系。在GraphQL的架构中，需要将a、b请求的数据在服务端合并，并使用GaphQL引擎构建运行时，对外提供接口c。这样就意味着c接口需要承担a、b两个请求的查询量，性能方面是否会有瓶颈？</li>
+<li>其次，对于数据模型的定义务必精确，哪些字段可以被查询，哪些需要有请求参数，还有分页等都需要考虑。</li>
+<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊。因为整体的请求返回需要GraphQL引擎来处理，所以原本一些过滤器拦截器的方案可能被替代，需要业务层来完整处理应对。</li>
+<li>GraphQL-Java的文档较少，而且官网上的一些demo也无法运行，前期调研成本较大</li>
 </ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a><br><a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">Graphsql-Java文档</a><br><a href="https://segmentfault.com/a/1190000012119468" target="_blank" rel="noopener">Graphsql-Java官方文档翻译</a></p>
 
