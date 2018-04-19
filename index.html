@@ -344,7 +344,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  230
+                  1,130
                 </span>
               
 
@@ -372,195 +372,31 @@
         
           
             <p>这一篇介绍一下GraphQL实际使用时的语法和一些要素</p>
-<h2 id="字段（Field）"><a href="#字段（Field）" class="headerlink" title="字段（Field）"></a>字段（Field）</h2><p>请求对象上的特定字段，返回结果的数据字段<br>可以是基本类型（String，Int），也可以是自定义对象类型<br>example：<br>请求<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  hero &#123;</span><br><span class="line">    name</span><br><span class="line">    # 查询可以有备注！</span><br><span class="line">    friends &#123;</span><br><span class="line">      name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>返回：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"hero"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"R2-D2"</span>,</span><br><span class="line">      <span class="attr">"friends"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Luke Skywalker"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Han Solo"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Leia Organa"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，请求的时候可以对</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过对官网的浏览，对后端来说，并没有觉得有什么很明显的优势。但对前端或者整个项目来说，提升还是挺明显的，具体效果等实际应用了以后再看吧。后面几章会介绍一下GraphQL的语法，并使用GraphQL-java做一些服务器端的Demo及数据模型的创建。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(一)-GraphQL介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zs Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/kirua.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhou">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/19/Graphql学习(一)-GraphQL介绍/" itemprop="url">Graphql学习(一)-介绍</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T10:50:02+08:00">
-                2018-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graphql/" itemprop="url" rel="index">
-                    <span itemprop="name">Graphql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  924
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="/images/graphql.png" alt=""><br>这一篇介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
-<p>GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。<br>以上内容摘抄自官网。简单说一下我的理解：可以说是Web服务的一种新的架构和规范，并且在FaceBook、gitHub、Twitter中均已使用。对比现在业务使用的Restful来说，有下列优势：</p>
-<ul>
-<li>单endpoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
-<li>清晰的数据模型，字段强类型</li>
-<li>按需获取，减少网络请求，无冗余</li>
-<li>API迭代顺畅，无须版本化</li>
-<li>协议而非存储，对服务端数据进行组装过滤</li>
-</ul>
-<h2 id="Rest比较"><a href="#Rest比较" class="headerlink" title="Rest比较"></a>Rest比较</h2><ul>
-<li>数据获取：Rest缺乏扩展性，GraphQL获取时，payload可以扩展，按需获取</li>
-<li>API调用：Rest有多个endpoint，GraphQL在大多数情况下只有1个endpoint，只是body内容不同</li>
-<li>复杂请求：Rest需要多次，GraphQL一次调用，减少网络开销</li>
-<li>返回处理：Rest有多种httpCode及Status，GraphQL只有200响应，错误内容需要在结果集中特殊获取</li>
-<li>版本号：Rest使用V1、V2，GraphQL可根据Schema自行扩展</li>
-</ul>
-<p>可以看出，GraphQL对前端开发来说帮助巨大，减少了很多工作量。但为了配合使用，服务器端需要怎么协同，并有什么好处呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层使用GraphQL引擎对已获取的结果数据再做一次包装。</p>
-<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><ul>
-<li>可以预见，服务端在改造时，数据获取层不会有太大的工作量，但由于只有一个endpoint，在业务逻辑层可能需要拼接原来多个接口返回的数据。比如个人主页的访问，原本需要a请求返回个人信息，b请求返回朋友关系。在GraphQL的架构中，需要将a、b请求的数据在服务端合并，并使用GaphQL引擎构建运行时，对外提供接口c。这样就意味着c接口需要承担a、b两个请求的查询量，性能方面是否会有瓶颈？</li>
-<li>其次，对于数据模型的定义务必精确，哪些字段可以被查询，哪些需要有请求参数，还有分页等都需要考虑。</li>
-<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊。因为整体的请求返回需要GraphQL引擎来处理，所以原本一些过滤器拦截器的方案可能被替代，需要业务层来完整处理应对。</li>
-<li>GraphQL-Java的文档较少，而且官网上的一些demo也无法运行，前期调研成本较大</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过对官网的浏览，对后端来说，并没有觉得有什么很明显的优势。但对前端或者整个项目来说，提升还是挺明显的，具体效果等实际应用了以后再看吧。后面几章会介绍一下GraphQL的语法，并使用GraphQL-java做一些服务器端的Demo及数据模型的创建。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a><br><a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">Graphsql-Java文档</a><br><a href="https://segmentfault.com/a/1190000012119468" target="_blank" rel="noopener">Graphsql-Java官方文档翻译</a></p>
+<h2 id="字段（Fields）"><a href="#字段（Fields）" class="headerlink" title="字段（Fields）"></a>字段（Fields）</h2><p>请求对象上的特定字段，返回结果的数据字段<br>可以是基本类型（String，Int），也可以是自定义对象类型<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  hero &#123;</span><br><span class="line">    name</span><br><span class="line">    # 查询可以有备注！</span><br><span class="line">    friends &#123;</span><br><span class="line">      name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"hero"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"R2-D2"</span>,</span><br><span class="line">      <span class="attr">"friends"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Luke Skywalker"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Han Solo"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="attr">"name"</span>: <span class="string">"Leia Organa"</span></span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，请求的时候可以对字段进行层级选择，使客户端可以一次性取的级联关系的相关数据。</p>
+<h2 id="参数（Arguments）"><a href="#参数（Arguments）" class="headerlink" title="参数（Arguments）"></a>参数（Arguments）</h2><p>在字段上还可以增加input参数，比如指定请求ID为1000的某个对象<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  human(id: "1000") &#123;</span><br><span class="line">    name</span><br><span class="line">    height</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"human"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Luke Skywalker"</span>,</span><br><span class="line">      <span class="attr">"height"</span>: <span class="number">1.72</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时参数可以是不同的类型，例子中的id是String。GraphQL提供了一套默认类型，Int、Enum等等（类比于java的基础类型），也可以自己定制类型（java的class），如果参数类型是定制类型的话，可以配合另一个关键词 <strong>Variables</strong> ，以Json形式传入。</p>
+<h2 id="别名（Aliases）"><a href="#别名（Aliases）" class="headerlink" title="别名（Aliases）"></a>别名（Aliases）</h2><p>简单说来就是对字段及返回用任意的名字进行变更<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  empireHero: hero(episode: EMPIRE) &#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">  jediHero: hero(episode: JEDI) &#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"data"</span>: &#123;</span><br><span class="line">    <span class="attr">"empireHero"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"Luke Skywalker"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"jediHero"</span>: &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"R2-D2"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原本请求2个hero字段会有冲突，用别名就解决了这个问题</p>
+<h2 id="操作名称（Operation-name）"><a href="#操作名称（Operation-name）" class="headerlink" title="操作名称（Operation name）"></a>操作名称（Operation name）</h2><p>上面的查询使用了简写，其实都省略了 query 关键字及具体的查询名称。推荐在使用中，定义查询名称减少歧义，而且当传递动态参数及变量时，需要在名称后声明<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">query QueryUsers &#123;</span><br><span class="line">  user &#123;</span><br><span class="line">    userName</span><br><span class="line">    dogs &#123;</span><br><span class="line">      dogName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上例中声明了<strong>操作类型</strong>为query，并且<strong>操作名称</strong>是QueryUsers<br>GraphQL中操作类型有：<strong>query</strong>（查询）、<strong>mutation</strong>（增删改）、<strong>subscription</strong>（订阅）。</p>
+<h2 id="变量（Variables）"><a href="#变量（Variables）" class="headerlink" title="变量（Variables）"></a>变量（Variables）</h2><p>在<strong>参数</strong>演示了将参数值加在字段上，但很多情况下请求参数都是动态的，如何适配这一场景呢？<br>使用前需要：</p>
+<ol>
+<li>使用$vname 替代查询中的静态值</li>
+<li>在操作名称后声明$vname为查询接受的变量之一</li>
+<li>使用json格式传输变量<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">query QueryUsers($vname:String = "zzz") &#123;</span><br><span class="line">  user(userName:$vname) &#123;</span><br><span class="line">    userName</span><br><span class="line">    dogs &#123;</span><br><span class="line">      dogName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"vname"</span>:<span class="string">"zzz"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这样通过不同的变量就可以进行动态的查询了。注意也可以在操作名称后的变量后定义默认值。如果想传递一个复杂对象，需要知道Schema的定义，并以对应的json形式传入，这边不做赘述。</p>
+<p>指令（Directives）<br>和变量可以动态操作我们的查询一样，指令可以帮助我们动态的改变我们查询的结构。常见于列表视图及详情视图中。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">query QueryUsers($vname:String = "zzz",$needShow:Boolean) &#123;</span><br><span class="line">  user(userName:$vname) &#123;</span><br><span class="line">    userName</span><br><span class="line">    dogs @include(if: $needShow)&#123;</span><br><span class="line">      dogName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"vname"</span>:<span class="string">"zzz"</span></span><br><span class="line">    <span class="string">"needShow"</span>:<span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样整体的返回结果中就不会包含dogs字段，可以使用的指令有：<br>@include(if: Boolean) 仅在参数为 true 时，包含此字段。<br>@skip(if: Boolean) 如果参数为 true，跳过此字段。</p>
+<h2 id="变更（Mutation）"><a href="#变更（Mutation）" class="headerlink" title="变更（Mutation）"></a>变更（Mutation）</h2><p>之前大部分涉及的都是数据查询，GraphQL中约定任何的写入操作通过Mutation来进行操作。和查询一样，如果一个变更操作后需要返回数据，也可以请求字段来作数据返回<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mutation CreateUser($vname: String!, $dogs: DogInput!) &#123;</span><br><span class="line">  create(userName: $vname, dogs: $dogs) &#123;</span><br><span class="line">    userName</span><br><span class="line">    dogs&#123;</span><br><span class="line">        dogName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Variable：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"vname"</span>:<span class="string">"testUserName"</span>,</span><br><span class="line">    <span class="attr">"dogs"</span>:[</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"dogName"</span>:<span class="number">12345</span></span><br><span class="line">                &#125;,</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">"dogName"</span>:<span class="number">12345</span></span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上例中的dog变量并非GraphQL自带类型，它是一个<strong>输入对象类型</strong>，一种特殊的对象类型，可以当做参数传递，可以在Schema中了解更多自定义类型的信息。<br>注：一次查询中，可以发起多个Query（并行），也可以发起多个Mutation（串行）</p>
+<h2 id="内联片段（Inline-Fragments）：参见官网，用的比较少"><a href="#内联片段（Inline-Fragments）：参见官网，用的比较少" class="headerlink" title="内联片段（Inline Fragments）：参见官网，用的比较少"></a>内联片段（Inline Fragments）：参见官网，用的比较少</h2><h2 id="元字段（Meta-fields）"><a href="#元字段（Meta-fields）" class="headerlink" title="元字段（Meta fields）"></a>元字段（Meta fields）</h2><p>顾名思义，有一些内置参数，在我们不知道GraphQL服务会返回的数据结构，数据类型等、</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>介绍了基本的查询语法及可以使用到的一些常用功能，应该不难理解，而且在数据层面也都和一般的Rest API差不多，学习成本较低。</p>
 
           
         
@@ -694,7 +530,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  927
+                  926
                 </span>
               
 
@@ -721,7 +557,7 @@
       
         
           
-            <p><img src="/images/graphql.png" alt=""><br>这一篇章简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
+            <p><img src="/images/graphql.png" alt=""><br>这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
 <p>GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。<br>以上内容摘抄自官网。简单说一下我的理解：可以说是Web服务的一种新的架构和规范，并且在FaceBook、gitHub、Twitter中均已使用。对比现在业务使用的Restful来说，有下列优势：</p>
 <ul>
 <li>单endpoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
@@ -1227,7 +1063,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
