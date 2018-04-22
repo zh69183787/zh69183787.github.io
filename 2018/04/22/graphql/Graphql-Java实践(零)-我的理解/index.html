@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="GraphQL HTTP 服务器一般都可以处理 HTTP 的 POST 方法，有的还可以处理 GET 方法。  GET 请求  用 GET 请求查询 GraphQL 服务器时，应当将查询的文档，变量和操作名称作为 GET 参数传给服务器。完整的参数格式：?query=查询文档&amp;amp;variables=变量&amp;amp;operationName=操作名称。 query：查询文档，必填。variab">
+<meta name="description" content="这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势 GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。以上内容摘抄自官网。简单说一下我的理解：">
 <meta name="keywords" content="Graphql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Graphql学习(五)-Http规范">
-<meta property="og:url" content="http://yoursite.com/2018/04/20/Graphql学习(五)-Http请求规范/index.html">
+<meta property="og:title" content="Graphql-Java实践(零)-我的理解">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/index.html">
 <meta property="og:site_name" content="Zhou">
-<meta property="og:description" content="GraphQL HTTP 服务器一般都可以处理 HTTP 的 POST 方法，有的还可以处理 GET 方法。  GET 请求  用 GET 请求查询 GraphQL 服务器时，应当将查询的文档，变量和操作名称作为 GET 参数传给服务器。完整的参数格式：?query=查询文档&amp;amp;variables=变量&amp;amp;operationName=操作名称。 query：查询文档，必填。variab">
+<meta property="og:description" content="这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势 GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。以上内容摘抄自官网。简单说一下我的理解：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-20T14:13:04.856Z">
+<meta property="og:image" content="http://yoursite.com/images/graphql.png">
+<meta property="og:updated_time" content="2018-04-22T01:21:11.376Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Graphql学习(五)-Http规范">
-<meta name="twitter:description" content="GraphQL HTTP 服务器一般都可以处理 HTTP 的 POST 方法，有的还可以处理 GET 方法。  GET 请求  用 GET 请求查询 GraphQL 服务器时，应当将查询的文档，变量和操作名称作为 GET 参数传给服务器。完整的参数格式：?query=查询文档&amp;amp;variables=变量&amp;amp;operationName=操作名称。 query：查询文档，必填。variab">
+<meta name="twitter:title" content="Graphql-Java实践(零)-我的理解">
+<meta name="twitter:description" content="这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势 GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。以上内容摘抄自官网。简单说一下我的理解：">
+<meta name="twitter:image" content="http://yoursite.com/images/graphql.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/20/Graphql学习(五)-Http请求规范/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/"/>
 
 
 
 
 
-  <title>Graphql学习(五)-Http规范 | Zhou</title>
+  <title>Graphql-Java实践(零)-我的理解 | Zhou</title>
   
 
 
@@ -263,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Graphql学习(五)-Http请求规范/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -280,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Graphql学习(五)-Http规范</h1>
+          <h1 class="post-title" itemprop="name headline">Graphql-Java实践(零)-我的理解</h1>
         
 
         <div class="post-meta">
@@ -292,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T22:11:02+08:00">
-                2018-04-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T10:50:02+08:00">
+                2018-04-22
               </time>
             
 
@@ -332,7 +334,7 @@
 
           
           
-             <span id="/2018/04/20/Graphql学习(五)-Http请求规范/" class="leancloud_visitors" data-flag-title="Graphql学习(五)-Http规范">
+             <span id="/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(零)-我的理解">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -357,7 +359,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  315
+                  926
                 </span>
               
 
@@ -381,22 +383,31 @@
       
 
       
-        <p>GraphQL HTTP 服务器一般都可以处理 HTTP 的 POST 方法，有的还可以处理 GET 方法。</p>
-<ol>
-<li>GET 请求</li>
-</ol>
-<p>用 GET 请求查询 GraphQL 服务器时，应当将查询的文档，变量和操作名称作为 GET 参数传给服务器。<br>完整的参数格式：?query=查询文档&amp;variables=变量&amp;operationName=操作名称。</p>
-<p>query：查询文档，必填。<br>variables：变量，选填。<br>operationName：操作名称，选填，查询文档有多个操作时必填。<br>// 请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  viewer &#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对应的通过 HTTP GET 发送的示例：<br><a href="http://api.com/graphql?query={viewer{name}}" target="_blank" rel="noopener">http://api.com/graphql?query={viewer{name}}</a></p>
-<ol start="2">
-<li>POST 请求</li>
-</ol>
-<p>标准的 GraphQL POST 请求应当在 HTTP header 中声明 Content-Type: application/json，并且使用 JSON 格式的内容。<br>POST 报文体中的 JSON 数据中的三个字段跟 GET 请求类似：</p>
-<p>query：查询文档，必填。<br>variables：变量，选填。<br>operationName：操作名称，选填，查询文档有多个操作时必填。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: <span class="string">"&#123;viewer&#123;name&#125;&#125;"</span>,</span><br><span class="line">  <span class="attr">"operationName"</span>: <span class="string">""</span>,</span><br><span class="line">  "variables": &#123; "name": "value", ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>响应</li>
-</ol>
-<p>无论用 GET 还是 POST 方法查询，HttpStatus均为200，响应一般都会以 JSON 格式在 POST 的报文体返回。响应的规范参考这里，正常响应的数据放在 data 属性中，异常时记录在 errors 属性中：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "data": &#123; ... &#125;,</span><br><span class="line">  "errors": [ ... ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p><img src="/images/graphql.png" alt=""><br>这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
+<p>GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。<br>以上内容摘抄自官网。简单说一下我的理解：可以说是Web服务的一种新的架构和规范，并且在FaceBook、gitHub、Twitter中均已使用。对比现在业务使用的Restful来说，有下列优势：</p>
+<ul>
+<li>单endpoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
+<li>清晰的数据模型，字段强类型</li>
+<li>按需获取，减少网络请求，无冗余</li>
+<li>API迭代顺畅，无须版本化</li>
+<li>协议而非存储，对服务端数据进行组装过滤</li>
+</ul>
+<h2 id="Rest比较"><a href="#Rest比较" class="headerlink" title="Rest比较"></a>Rest比较</h2><ul>
+<li>数据获取：Rest缺乏扩展性，GraphQL获取时，payload可以扩展，按需获取</li>
+<li>API调用：Rest有多个endpoint，GraphQL在大多数情况下只有1个endpoint，只是body内容不同</li>
+<li>复杂请求：Rest需要多次，GraphQL一次调用，减少网络开销</li>
+<li>返回处理：Rest有多种httpCode及Status，GraphQL只有200响应，错误内容需要在结果集中特殊获取</li>
+<li>版本号：Rest使用V1、V2，GraphQL可根据Schema自行扩展</li>
+</ul>
+<p>可以看出，GraphQL对前端开发来说帮助巨大，减少了很多工作量。但为了配合使用，服务器端需要怎么协同，并有什么好处呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层使用GraphQL引擎对已获取的结果数据再做一次包装。</p>
+<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><ul>
+<li>可以预见，服务端在改造时，数据获取层不会有太大的工作量，但由于只有一个endpoint，在业务逻辑层可能需要拼接原来多个接口返回的数据。比如个人主页的访问，原本需要a请求返回个人信息，b请求返回朋友关系。在GraphQL的架构中，需要将a、b请求的数据在服务端合并，并使用GaphQL引擎构建运行时，对外提供接口c。这样就意味着c接口需要承担a、b两个请求的查询量，性能方面是否会有瓶颈？</li>
+<li>其次，对于数据模型的定义务必精确，哪些字段可以被查询，哪些需要有请求参数，还有分页等都需要考虑。</li>
+<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊。因为整体的请求返回需要GraphQL引擎来处理，所以原本一些过滤器拦截器的方案可能被替代，需要业务层来完整处理应对。</li>
+<li>GraphQL-Java的文档较少，而且官网上的一些demo也无法运行，前期调研成本较大</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过对官网的浏览，对后端来说，并没有觉得有什么很明显的优势。但对前端或者整个项目来说，提升还是挺明显的，具体效果等实际应用了以后再看吧。后面几章会介绍一下GraphQL的语法，并使用GraphQL-java做一些服务器端的Demo及数据模型的创建。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a><br><a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">Graphsql-Java文档</a><br><a href="https://segmentfault.com/a/1190000012119468" target="_blank" rel="noopener">Graphsql-Java官方文档翻译</a></p>
 
       
     </div>
@@ -427,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/20/Graphql-Java实践(一)-Demo/" rel="next" title="Graphql-Java实践(一)">
-                <i class="fa fa-chevron-left"></i> Graphql-Java实践(一)
+              <a href="/2018/04/21/graphql/Graphql-Java实践(二)-变更/" rel="next" title="Graphql-Java实践(二)-变更">
+                <i class="fa fa-chevron-left"></i> Graphql-Java实践(二)-变更
               </a>
             
           </div>
@@ -436,10 +447,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/20/Graphql学习(五)-Http规范/" rel="prev" title="Graphql学习(五)-Http请求规范">
-                Graphql学习(五)-Http请求规范 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -496,8 +503,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -516,7 +532,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -578,6 +594,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rest比较"><span class="nav-number">1.</span> <span class="nav-text">Rest比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自己的理解"><span class="nav-number">2.</span> <span class="nav-text">自己的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -616,7 +648,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10.6k字</span>
+  <span class="post-count">博客全站共13.0k字</span>
 </div>
 
         

@@ -259,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Graphql学习(五)-Http规范/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -278,7 +278,377 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/20/Graphql学习(五)-Http规范/" itemprop="url">Graphql学习(五)-Http请求规范</a></h1>
+                <a class="post-title-link" href="/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/" itemprop="url">Graphql-Java实践(零)-我的理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T10:50:02+08:00">
+                2018-04-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphql/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(零)-我的理解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  926
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="/images/graphql.png" alt=""><br>这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
+<p>GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。<br>以上内容摘抄自官网。简单说一下我的理解：可以说是Web服务的一种新的架构和规范，并且在FaceBook、gitHub、Twitter中均已使用。对比现在业务使用的Restful来说，有下列优势：</p>
+<ul>
+<li>单endpoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
+<li>清晰的数据模型，字段强类型</li>
+<li>按需获取，减少网络请求，无冗余</li>
+<li>API迭代顺畅，无须版本化</li>
+<li>协议而非存储，对服务端数据进行组装过滤</li>
+</ul>
+<h2 id="Rest比较"><a href="#Rest比较" class="headerlink" title="Rest比较"></a>Rest比较</h2><ul>
+<li>数据获取：Rest缺乏扩展性，GraphQL获取时，payload可以扩展，按需获取</li>
+<li>API调用：Rest有多个endpoint，GraphQL在大多数情况下只有1个endpoint，只是body内容不同</li>
+<li>复杂请求：Rest需要多次，GraphQL一次调用，减少网络开销</li>
+<li>返回处理：Rest有多种httpCode及Status，GraphQL只有200响应，错误内容需要在结果集中特殊获取</li>
+<li>版本号：Rest使用V1、V2，GraphQL可根据Schema自行扩展</li>
+</ul>
+<p>可以看出，GraphQL对前端开发来说帮助巨大，减少了很多工作量。但为了配合使用，服务器端需要怎么协同，并有什么好处呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层使用GraphQL引擎对已获取的结果数据再做一次包装。</p>
+<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><ul>
+<li>可以预见，服务端在改造时，数据获取层不会有太大的工作量，但由于只有一个endpoint，在业务逻辑层可能需要拼接原来多个接口返回的数据。比如个人主页的访问，原本需要a请求返回个人信息，b请求返回朋友关系。在GraphQL的架构中，需要将a、b请求的数据在服务端合并，并使用GaphQL引擎构建运行时，对外提供接口c。这样就意味着c接口需要承担a、b两个请求的查询量，性能方面是否会有瓶颈？</li>
+<li>其次，对于数据模型的定义务必精确，哪些字段可以被查询，哪些需要有请求参数，还有分页等都需要考虑。</li>
+<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊。因为整体的请求返回需要GraphQL引擎来处理，所以原本一些过滤器拦截器的方案可能被替代，需要业务层来完整处理应对。</li>
+<li>GraphQL-Java的文档较少，而且官网上的一些demo也无法运行，前期调研成本较大</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过对官网的浏览，对后端来说，并没有觉得有什么很明显的优势。但对前端或者整个项目来说，提升还是挺明显的，具体效果等实际应用了以后再看吧。后面几章会介绍一下GraphQL的语法，并使用GraphQL-java做一些服务器端的Demo及数据模型的创建。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a><br><a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">Graphsql-Java文档</a><br><a href="https://segmentfault.com/a/1190000012119468" target="_blank" rel="noopener">Graphsql-Java官方文档翻译</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/21/graphql/Graphql-Java实践(二)-变更/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zs Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/kirua.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhou">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/21/graphql/Graphql-Java实践(二)-变更/" itemprop="url">Graphql-Java实践(二)-变更</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-21T19:44:02+08:00">
+                2018-04-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Graphql-Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Graphql-Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/04/21/graphql/Graphql-Java实践(二)-变更/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(二)-变更">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,003
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这次来说一下相对应 “增删改的” Mutation操作，也是使用对应的DataFetcher，只不过增加了一个增删改的操作后返回查询结果罢了，老样子来看一个例子，IDL方式<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    mutation: userMutation</span><br><span class="line">    query: userQuery</span><br><span class="line">&#125;</span><br><span class="line">type userQuery &#123;</span><br><span class="line">    user(id: Int): [User]</span><br><span class="line">&#125;</span><br><span class="line">type userMutation &#123;</span><br><span class="line">    createUser(addUser:UserInput): [User]</span><br><span class="line">&#125;</span><br><span class="line">input UserInput&#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs: [DogInput]</span><br><span class="line">&#125;</span><br><span class="line">input DogInput &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    dogName: String!</span><br><span class="line">&#125;</span><br><span class="line">type User &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs(dogId:Int): [Dog]</span><br><span class="line">&#125;</span><br><span class="line">type Dog &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    dogName: String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所有的入参除了基础标量类型以外，需要使用input类型来指代自定义类型，同时在定义Mutation的同时，必须有1个Query操作，不然执行Schema校验的时候会报错，不知道是什么原因，不过项目中肯定是Mutation与Query共存的，也就不深究了。另外大家看到在新增操作的地方，参数我使用了一个自定义input对象。如果是基础类型的话，方式与Query一直；但如果使用了自定义类型，在进行Variable设置的时候是有一定区别的，具体看Java代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构建一个运行时Java语义 绑定schema，包括（datafetcher、typeResolver、customScalar）</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> RuntimeWiring <span class="title">buildRuntimeWiring</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//return RuntimeWiring.newRuntimeWiring().wiringFactory(new EchoingWiringFactory()).build();</span></span><br><span class="line">        <span class="keyword">return</span> RuntimeWiring.newRuntimeWiring()</span><br><span class="line">                <span class="comment">// this uses builder function lambda syntax</span></span><br><span class="line">                .type(<span class="string">"userMutation"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                                .dataFetcher(<span class="string">"createUser"</span>, environment -&gt; &#123;</span><br><span class="line">                                    <span class="comment">//上一级对象数据 environment.getSource()</span></span><br><span class="line">                                    <span class="comment">//Map&lt;String,Object&gt; environment.getArguments()</span></span><br><span class="line">                                    <span class="comment">//环境上下文，整个查询冒泡中都可以使用 environment.getContext()</span></span><br><span class="line">                                    Map&lt;String,Objects&gt; paramMap = environment.getArgument(<span class="string">"addUser"</span>);</span><br><span class="line">                                    System.out.println(<span class="string">"argument:paramMap="</span> + paramMap);</span><br><span class="line">                                    <span class="comment">// repository 处理</span></span><br><span class="line">                                    <span class="keyword">return</span> getUsers(<span class="number">123</span>);</span><br><span class="line">                                &#125;)</span><br><span class="line">                ).type(<span class="string">"userQuery"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                                .dataFetcher(<span class="string">"user"</span>, environment -&gt; &#123;</span><br><span class="line">                                    <span class="comment">//上一级对象数据 environment.getSource()</span></span><br><span class="line">                                    <span class="comment">//Map&lt;String,Object&gt; environment.getArguments()</span></span><br><span class="line">                                    <span class="comment">//环境上下文，整个查询冒泡中都可以使用 environment.getContext()</span></span><br><span class="line">                                    Integer id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">                                    System.out.println(<span class="string">"argument:id="</span> + id);</span><br><span class="line">                                    <span class="comment">// repository 处理</span></span><br><span class="line">                                    <span class="keyword">return</span> getUsers(id);</span><br><span class="line">                                &#125;)</span><br><span class="line">                ).type(<span class="string">"User"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                        .dataFetcher(<span class="string">"dogs"</span>, environment -&gt; &#123;</span><br><span class="line">                            <span class="comment">//获取父对象</span></span><br><span class="line">                            User user = environment.getSource();</span><br><span class="line">                            <span class="keyword">int</span> userId = user.getId();</span><br><span class="line">                            System.out.println(<span class="string">"dogs outside userId = "</span> + userId);</span><br><span class="line">                            Integer paramDogId = environment.getArgument(<span class="string">"dogId"</span>);</span><br><span class="line">                            System.out.println(<span class="string">"dogs inside dogId = "</span> + paramDogId);</span><br><span class="line">                            <span class="comment">//模拟rpc调用</span></span><br><span class="line">                            List&lt;Dog&gt; dogs = Lists.newArrayList();</span><br><span class="line">                            <span class="keyword">return</span> dogs;</span><br><span class="line">                        &#125;))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//schema</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mainExec</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">//创建Schema</span></span><br><span class="line">        SchemaParser schemaParser = <span class="keyword">new</span> SchemaParser();</span><br><span class="line">        SchemaGenerator schemaGenerator = <span class="keyword">new</span> SchemaGenerator();</span><br><span class="line"></span><br><span class="line">        File schemaFile = loadSchema(<span class="string">"graphql/userMutation.graphqls"</span>);</span><br><span class="line"></span><br><span class="line">        TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);</span><br><span class="line">        RuntimeWiring wiring = buildRuntimeWiring();</span><br><span class="line">        GraphQLSchema schema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);</span><br><span class="line">        <span class="comment">//测试输出</span></span><br><span class="line">        GraphQL graphQL = GraphQL.newGraphQL(schema).build();</span><br><span class="line">        Map&lt;String,Object&gt; variable = Maps.newHashMap();</span><br><span class="line">        variable.put(<span class="string">"uuu"</span>,MutationVariableHandler.getVariablesMapFromString(JSON.toJSONString(getUsers(<span class="number">123</span>).get(<span class="number">0</span>))));</span><br><span class="line">        <span class="comment">//变量名不要和类型名一样，不然好像有点问题</span></span><br><span class="line">        ExecutionInput executionInput = ExecutionInput.newExecutionInput().</span><br><span class="line">                variables(variable).</span><br><span class="line">                query(<span class="string">"mutation userMutation($uuu:UserInput)&#123;createUser(addUser:$uuu)"</span> +</span><br><span class="line">                        <span class="string">"&#123;id,age,dogs&#123;id,dogName&#125;&#125;&#125;"</span>).build();</span><br><span class="line">        ExecutionResult result = graphQL.execute(executionInput);</span><br><span class="line">        Map&lt;String, Object&gt; data = result.getData();</span><br><span class="line">        List errors = result.getErrors();</span><br><span class="line">        System.out.println(data);</span><br><span class="line">        System.out.println(<span class="string">"errors = "</span>+errors);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Console：<br>argument:paramMap={id=1, age=0, userName=bf2e46b6-dcf3-47e2-a14c-a305e38d3926, dogs=[{id=100, dogName=Dog11e0e22c-0b44-4018-968f-d655e64d4260}]}<br>dogs outside userId = 1<br>dogs inside dogId = null<br>{createUser=[{id=1, age=7, dogs=[]}]}</p>
+<p>uuu是我自己定义的类型为UserInput的Variable，在成功执行之前，我试过在map的value里放过json字符串、user对象，但GraphQL引擎执行的时候，会报如下错误：<br>graphql.schema.CoercingParseValueException: Variable ‘uuu’ has an invalid value. Expected type ‘Map’ but was ‘User’. Variables for input objects must be an instance of type ‘Map’.<br>看了下源码，发现在使用Variable进行query执行的时候，自定义类型必须以Map&lt;String,Object&gt;的形式入参，这就很尴尬了，贴上现在的转换方式，比较傻。但如果集合Web项目的话，入参可以直接转换成Map，应该会好一点：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> ObjectMapper jacksonObjectMapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> TypeReference&lt;HashMap&lt;String, Object&gt;&gt; typeRefReadJsonString = <span class="keyword">new</span> TypeReference&lt;HashMap&lt;String, Object&gt;&gt;() &#123;</span><br><span class="line">    &#125;;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String, Object&gt; <span class="title">getVariablesMapFromString</span><span class="params">(String variablesFromRequest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> jacksonObjectMapper.readValue(variablesFromRequest, typeRefReadJsonString);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException exception) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> GraphQLException(<span class="string">"Cannot parse variables"</span>, exception);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>说实话，写到这边个人认为Mutation只是单纯一个语义标识的操作类型，其实在Query的DataFetcher中也可以做插入和修改操作；而且Mutation同时也需要返回结果，和Query也类似。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/graphql/Graphql学习(五)-Http请求规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zs Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/kirua.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhou">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/20/graphql/Graphql学习(五)-Http请求规范/" itemprop="url">Graphql学习(五)-Http请求规范</a></h1>
         
 
         <div class="post-meta">
@@ -330,7 +700,7 @@
 
           
           
-             <span id="/2018/04/20/Graphql学习(五)-Http规范/" class="leancloud_visitors" data-flag-title="Graphql学习(五)-Http请求规范">
+             <span id="/2018/04/20/graphql/Graphql学习(五)-Http请求规范/" class="leancloud_visitors" data-flag-title="Graphql学习(五)-Http请求规范">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -445,7 +815,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Graphql学习(五)-Http请求规范/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/graphql/Graphql-Java实践(一)-查询/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -464,193 +834,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/20/Graphql学习(五)-Http请求规范/" itemprop="url">Graphql学习(五)-Http规范</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-20T22:11:02+08:00">
-                2018-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graphql/" itemprop="url" rel="index">
-                    <span itemprop="name">Graphql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/04/20/Graphql学习(五)-Http请求规范/" class="leancloud_visitors" data-flag-title="Graphql学习(五)-Http规范">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  315
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>GraphQL HTTP 服务器一般都可以处理 HTTP 的 POST 方法，有的还可以处理 GET 方法。</p>
-<ol>
-<li>GET 请求</li>
-</ol>
-<p>用 GET 请求查询 GraphQL 服务器时，应当将查询的文档，变量和操作名称作为 GET 参数传给服务器。<br>完整的参数格式：?query=查询文档&amp;variables=变量&amp;operationName=操作名称。</p>
-<p>query：查询文档，必填。<br>variables：变量，选填。<br>operationName：操作名称，选填，查询文档有多个操作时必填。<br>// 请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  viewer &#123;</span><br><span class="line">    name</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对应的通过 HTTP GET 发送的示例：<br><a href="http://api.com/graphql?query={viewer{name}}" target="_blank" rel="noopener">http://api.com/graphql?query={viewer{name}}</a></p>
-<ol start="2">
-<li>POST 请求</li>
-</ol>
-<p>标准的 GraphQL POST 请求应当在 HTTP header 中声明 Content-Type: application/json，并且使用 JSON 格式的内容。<br>POST 报文体中的 JSON 数据中的三个字段跟 GET 请求类似：</p>
-<p>query：查询文档，必填。<br>variables：变量，选填。<br>operationName：操作名称，选填，查询文档有多个操作时必填。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"query"</span>: <span class="string">"&#123;viewer&#123;name&#125;&#125;"</span>,</span><br><span class="line">  <span class="attr">"operationName"</span>: <span class="string">""</span>,</span><br><span class="line">  "variables": &#123; "name": "value", ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>响应</li>
-</ol>
-<p>无论用 GET 还是 POST 方法查询，HttpStatus均为200，响应一般都会以 JSON 格式在 POST 的报文体返回。响应的规范参考这里，正常响应的数据放在 data 属性中，异常时记录在 errors 属性中：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "data": &#123; ... &#125;,</span><br><span class="line">  "errors": [ ... ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/20/Graphql-Java实践(一)-Demo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zs Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/kirua.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhou">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/20/Graphql-Java实践(一)-Demo/" itemprop="url">Graphql-Java实践(一)</a></h1>
+                <a class="post-title-link" href="/2018/04/20/graphql/Graphql-Java实践(一)-查询/" itemprop="url">Graphql-Java实践(一)-查询</a></h1>
         
 
         <div class="post-meta">
@@ -702,7 +886,7 @@
 
           
           
-             <span id="/2018/04/20/Graphql-Java实践(一)-Demo/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(一)">
+             <span id="/2018/04/20/graphql/Graphql-Java实践(一)-查询/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(一)-查询">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -727,7 +911,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,520
+                  2,335
                 </span>
               
 
@@ -769,10 +953,14 @@
 <p>每个字段都有自己的 DataFetcher，如果未为字段指定DataFetcher,，那么自动使用默认的PropertyDataFetcher .PropertyDataFetcher 从 Map 和 Java Beans 中获取数据. 所以，当Schema中的field名，与Map中的key值，或 Source Object 中的 java bean 字段名相同时，不需要为field指定 DataFetcher。<br>而对象 TypeResolver 帮助 graphql-java 判断数据的实际类型(type). 所以 Interface 和 Union 均需要指定关联的 TypeResolver(类型识别器) .<br>以上面那个例子为基础，如果我们想查询ID为1的User，代码做如下变动，注意所有的Argument只能定义在Field上。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建查询Field</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> GraphQLFieldDefinition <span class="title">createUserField</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> newFieldDefinition().name(<span class="string">"user"</span>).argument(newArgument().name(<span class="string">"id"</span>).type(Scalars.GraphQLInt).build()).</span><br><span class="line">                <span class="comment">//返回类型</span></span><br><span class="line">                type(<span class="keyword">new</span> GraphQLList(getUserType())).</span><br><span class="line">                dataFetcher(environment -&gt; &#123;</span><br><span class="line">                    <span class="comment">//上一级对象数据 environment.getSource()</span></span><br><span class="line">                    <span class="comment">//Map&lt;String,Object&gt; environment.getArguments()</span></span><br><span class="line">                    <span class="comment">//环境上下文，整个查询冒泡中都可以使用 environment.getContext()</span></span><br><span class="line">                    Integer id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">                    System.out.println(<span class="string">"argument:id="</span>+id);</span><br><span class="line">                    <span class="comment">// repository 处理</span></span><br><span class="line">                    <span class="keyword">return</span> getUsers(id);</span><br><span class="line">                &#125;).</span><br><span class="line">                build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//query</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> GraphQLObjectType <span class="title">userQuery</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> newObject()</span><br><span class="line">                .name(<span class="string">"userQuery"</span>)</span><br><span class="line">                .field(createUserField())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//schema</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mainExec</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">//创建Schema</span></span><br><span class="line">        GraphQLSchema schema = GraphQLSchema.newSchema()</span><br><span class="line">                .query(userQuery())</span><br><span class="line">                .build();</span><br><span class="line">        <span class="comment">//测试输出</span></span><br><span class="line">        GraphQL graphQL = GraphQL.newGraphQL(schema).build();</span><br><span class="line">        Map&lt;String, Object&gt; result = graphQL.execute(<span class="string">"query userQuery&#123;user(id:1)&#123;id,age,dogs&#123;id,dogName&#125;&#125;&#125;"</span>).getData();</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>Console：<br>argument:id=1<br>{user=[{id=1, age=6, dogs=[{id=100, dogName=Dog14afa69d-42ce-49e9-ae48-9873ef68ece1}]}]}<br>在Schema中增加参数后，使用时带不带参数均可，如果希望使用动态参数Variable的话，查询只需要作如下改变：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    Map&lt;String,Object&gt; variable = Maps.newHashMap();</span><br><span class="line">    variable.put(<span class="string">"iidd"</span>,<span class="number">1</span>);</span><br><span class="line">    ExecutionInput executionInput = ExecutionInput.newExecutionInput().variables(variable).query(<span class="string">"query userQuery($iidd:Int)&#123;user(id:$iidd)&#123;id,age,dogs&#123;id,dogName&#125;&#125;&#125;"</span>).build();</span><br><span class="line">Map&lt;String, Object&gt; result = graphQL.execute(executionInput).getData();</span><br></pre></td></tr></table></figure></p>
 <p>ExecutionInput可以构造出一个标准的GraphQL-HTTP查询的请求体及Input执行，看了它的内部成员就一目了然了<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String query;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> String operationName;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Object context;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Object root;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt; variables;</span><br></pre></td></tr></table></figure></p>
-<h1 id="IDL"><a href="#IDL" class="headerlink" title="IDL"></a>IDL</h1><p>IDL与Java实现的区别就是需要定义后缀为graphqls的schema文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query: userQuery</span><br><span class="line">&#125;</span><br><span class="line">type userQuery &#123;</span><br><span class="line">    user(id: Int): [User]</span><br><span class="line">&#125;</span><br><span class="line">type User &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs: [Dog]</span><br><span class="line">&#125;</span><br><span class="line">type Dog &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    dogName: String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="IDL"><a href="#IDL" class="headerlink" title="IDL"></a>IDL</h1><p>IDL与Java实现的区别就是需要定义后缀为graphqls的schema文件，其中包含了Java定义中的类型，参数等等，可以看出无论是最终暴露给Schema的API userQuery还是 自定义类型User和Dog，都保持着GraphQL的一致类型结构<br><strong>变量名 ：参数类型</strong> ：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query: userQuery</span><br><span class="line">&#125;</span><br><span class="line">type userQuery &#123;</span><br><span class="line">    user(id: Int): [User]</span><br><span class="line">&#125;</span><br><span class="line">type User &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs: [Dog]</span><br><span class="line">&#125;</span><br><span class="line">type Dog &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    dogName: String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>由于Schema中只是指定了静态的字段和类型，你还需要把它绑定到java方法中。以让Schema可以运行起来，这里的绑定，包括 DataFetcher , TypeResolvers 与自定义 Scalar.<br>用下页的Builder方法，就可以绑定Schema和Java程序<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载schema文件</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> File <span class="title">loadSchema</span><span class="params">(<span class="keyword">final</span> String s)</span> </span>&#123;</span><br><span class="line">        System.out.println(GraphqlTest2.class.getClassLoader().getResource(<span class="string">"graphql/userDemo.graphqls"</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> File(GraphqlTest2.class.getClassLoader().getResource(s).getFile());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//构建一个运行时Java语义 绑定schema，包括（datafetcher、typeResolver、customScalar）</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> RuntimeWiring <span class="title">buildRuntimeWiring</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//return RuntimeWiring.newRuntimeWiring().wiringFactory(new EchoingWiringFactory()).build();</span></span><br><span class="line">        <span class="keyword">return</span> RuntimeWiring.newRuntimeWiring()</span><br><span class="line">                <span class="comment">// this uses builder function lambda syntax</span></span><br><span class="line">                .type(<span class="string">"userQuery"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                                .dataFetcher(<span class="string">"user"</span>, environment -&gt; &#123;</span><br><span class="line">                                    <span class="comment">//上一级对象数据 environment.getSource()</span></span><br><span class="line">                                    <span class="comment">//Map&lt;String,Object&gt; environment.getArguments()</span></span><br><span class="line">                                    <span class="comment">//环境上下文，整个查询冒泡中都可以使用 environment.getContext()</span></span><br><span class="line">                                    Integer id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">                                    System.out.println(<span class="string">"argument:id="</span> + id);</span><br><span class="line">                                    <span class="comment">// repository 处理</span></span><br><span class="line">                                    <span class="keyword">return</span> getUsers(id);</span><br><span class="line">                                &#125;)</span><br><span class="line">                ).build();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>最后，你可以通过整合静态 Schema 和 绑定（wiring），而生成一个可以执行的<br>Schema,最终结果与Java代码定义的schema运行一致<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">SchemaParser schemaParser = <span class="keyword">new</span> SchemaParser();</span><br><span class="line">        SchemaGenerator schemaGenerator = <span class="keyword">new</span> SchemaGenerator();</span><br><span class="line"></span><br><span class="line">        File schemaFile = loadSchema(<span class="string">"graphql/userDemo.graphqls"</span>);</span><br><span class="line"></span><br><span class="line">        TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);</span><br><span class="line">        RuntimeWiring wiring = buildRuntimeWiring();</span><br><span class="line">        GraphQLSchema schema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);</span><br><span class="line">        <span class="comment">//测试输出</span></span><br><span class="line">        GraphQL graphQL = GraphQL.newGraphQL(schema).build();</span><br><span class="line">        Map&lt;String,Object&gt; variable = Maps.newHashMap();</span><br><span class="line">        variable.put(<span class="string">"iidd"</span>,<span class="number">1</span>);</span><br><span class="line">        ExecutionInput executionInput = ExecutionInput.newExecutionInput().variables(variable).</span><br><span class="line">                query(<span class="string">"query userQuery($iidd:Int)&#123;user(id:$iidd)&#123;id,age,dogs&#123;id,dogName&#125;&#125;&#125;"</span>).build();</span><br><span class="line">        Map&lt;String, Object&gt; result = graphQL.execute(executionInput).getData();</span><br><span class="line">        System.out.println(result);</span><br></pre></td></tr></table></figure></p>
 <p>当Schema文件有多个的时候，可以通过以下方式进行读取融合：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">File schemaFile1 = loadSchema(<span class="string">"starWarsSchemaPart1.graphqls"</span>);</span><br><span class="line">File schemaFile2 = loadSchema(<span class="string">"starWarsSchemaPart2.graphqls"</span>);</span><br><span class="line">File schemaFile3 = loadSchema(<span class="string">"starWarsSchemaPart3.graphqls"</span>);</span><br><span class="line"></span><br><span class="line">TypeDefinitionRegistry typeRegistry = <span class="keyword">new</span> TypeDefinitionRegistry();</span><br><span class="line"></span><br><span class="line"><span class="comment">// each registry is merged into the main registry</span></span><br><span class="line">typeRegistry.merge(schemaParser.parse(schemaFile1));</span><br><span class="line">typeRegistry.merge(schemaParser.parse(schemaFile2));</span><br><span class="line">typeRegistry.merge(schemaParser.parse(schemaFile3));</span><br></pre></td></tr></table></figure></p>
+<p>说完两种构造Schema的方式后，我们来考虑一下场景，还是User和Dog的数据结构，如果User信息需要通过RPC从A应用处获取，而Dog信息需要由每一个userId调用应用B的RPC服务来获取，应该如何操作呢？<br>之前几篇文章中提到过，GraphQL引擎会一直解析字段及自定义对象类型，依次冒泡查询，直到遇到一个标量类型（也就是基础类型），当解析到dogs字段时，由于是自定义类型，自然会继续，而通过DataFetcher的environment可以获取到父对象及它的属性，所以解决方案也就应运而生了，但相对的，这种情况下也就会造成N+1的问题：<br>schema：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query: userQuery</span><br><span class="line">&#125;</span><br><span class="line">type userQuery &#123;</span><br><span class="line">    user(id: Int): [User]</span><br><span class="line">&#125;</span><br><span class="line">type User &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs(dogId:Int): [Dog]</span><br><span class="line">&#125;</span><br><span class="line">type Dog &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    dogName: String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构建一个运行时Java语义 绑定schema，包括（datafetcher、typeResolver、customScalar）</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> RuntimeWiring <span class="title">buildRuntimeWiring</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//return RuntimeWiring.newRuntimeWiring().wiringFactory(new EchoingWiringFactory()).build();</span></span><br><span class="line">        <span class="keyword">return</span> RuntimeWiring.newRuntimeWiring()</span><br><span class="line">                <span class="comment">// this uses builder function lambda syntax</span></span><br><span class="line">                .type(<span class="string">"userQuery"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                                .dataFetcher(<span class="string">"user"</span>, environment -&gt; &#123;</span><br><span class="line">                                    <span class="comment">//上一级对象数据 environment.getSource()</span></span><br><span class="line">                                    <span class="comment">//Map&lt;String,Object&gt; environment.getArguments()</span></span><br><span class="line">                                    <span class="comment">//环境上下文，整个查询冒泡中都可以使用 environment.getContext()</span></span><br><span class="line">                                    Integer id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">                                    System.out.println(<span class="string">"argument:id="</span> + id);</span><br><span class="line">                                    <span class="comment">// repository 处理</span></span><br><span class="line">                                    <span class="keyword">return</span> getUsers(id);</span><br><span class="line">                                &#125;)</span><br><span class="line">                ).type(<span class="string">"User"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                        .dataFetcher(<span class="string">"dogs"</span>, environment -&gt; &#123;</span><br><span class="line">                            <span class="comment">//获取父对象</span></span><br><span class="line">                            User user = environment.getSource();</span><br><span class="line">                            <span class="keyword">int</span> userId = user.getId();</span><br><span class="line">                            System.out.println(<span class="string">"dogs outside userId = "</span>+ userId);</span><br><span class="line">                            Integer paramDogId = environment.getArgument(<span class="string">"dogId"</span>);</span><br><span class="line">                            System.out.println(<span class="string">"dogs inside dogId = "</span>+ paramDogId);</span><br><span class="line">                            <span class="comment">//模拟rpc调用</span></span><br><span class="line">                            List&lt;Dog&gt; dogs = Lists.newArrayList();</span><br><span class="line">                            <span class="keyword">return</span> dogs;</span><br><span class="line">                        &#125;))</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//schema</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mainExec</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="comment">//创建Schema</span></span><br><span class="line">        SchemaParser schemaParser = <span class="keyword">new</span> SchemaParser();</span><br><span class="line">        SchemaGenerator schemaGenerator = <span class="keyword">new</span> SchemaGenerator();</span><br><span class="line"></span><br><span class="line">        File schemaFile = loadSchema(<span class="string">"graphql/userDemo.graphqls"</span>);</span><br><span class="line"></span><br><span class="line">        TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);</span><br><span class="line">        RuntimeWiring wiring = buildRuntimeWiring();</span><br><span class="line">        GraphQLSchema schema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);</span><br><span class="line">        <span class="comment">//测试输出</span></span><br><span class="line">        GraphQL graphQL = GraphQL.newGraphQL(schema).build();</span><br><span class="line">        Map&lt;String,Object&gt; variable = Maps.newHashMap();</span><br><span class="line">        variable.put(<span class="string">"iidd"</span>,<span class="number">1</span>);variable.put(<span class="string">"dogId"</span>,<span class="number">2</span>);</span><br><span class="line">        ExecutionInput executionInput = ExecutionInput.newExecutionInput().variables(variable).</span><br><span class="line">                query(<span class="string">"query userQuery($iidd:Int,$dogId:Int)&#123;user(id:$iidd)&#123;id,age,dogs(dogId:$dogId)&#123;id,dogName&#125;&#125;&#125;"</span>).build();</span><br><span class="line">        Map&lt;String, Object&gt; result = graphQL.execute(executionInput).getData();</span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>console：<br>argument:id=1<br>dogs outside userId = 1<br>dogs inside dogId = 2<br>{user=[{id=1, age=3, dogs=[]}]}<br><strong>注意：所有的DateFetcher和Arguments都必须定义在Field上</strong><br>通过上面的几个例子大家可以发现，通过读取IDL解析定义Schema在代码量和可读性方面都比使用Java来定义好很多，推荐使用。<br>其次，每一个在Schema中定义的type都可以对内部的字段Field定义相应的DataFetcher，并且次级Field可以获取上级Field已获得的结果，就像dogs中获取父对象User实例一样，同时可以自定义自己的返回值，而不是使用默认的PropertyDataFetcher读取pojo对应属性的get/set值。</p>
+<p>后面在异步篇章会介绍一下在获取数据这块能否有性能更加或者更优化的方案，解决后端数据可能造成的N+1的问题以及潜在的嵌套查询。</p>
 
           
         
@@ -821,7 +1009,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql-Java实践(二)-异步执行/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/graphql/Graphql-Java实践(四)-SpringBoot集成/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -840,7 +1028,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/19/Graphql-Java实践(二)-异步执行/" itemprop="url">Graphql-Java实践(二)-异步执行.md</a></h1>
+                <a class="post-title-link" href="/2018/04/19/graphql/Graphql-Java实践(四)-SpringBoot集成/" itemprop="url">Graphql-Java实践(四)-SpringBoot集成</a></h1>
         
 
         <div class="post-meta">
@@ -892,7 +1080,7 @@
 
           
           
-             <span id="/2018/04/19/Graphql-Java实践(二)-异步执行/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(二)-异步执行.md">
+             <span id="/2018/04/19/graphql/Graphql-Java实践(四)-SpringBoot集成/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(四)-SpringBoot集成">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -992,7 +1180,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql-Java实践(三)-SpringBoot集成/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/graphql/Graphql-Java实践(三)-异步执行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -1011,7 +1199,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/19/Graphql-Java实践(三)-SpringBoot集成/" itemprop="url">Graphql-Java实践(三)-SpringBoot集成</a></h1>
+                <a class="post-title-link" href="/2018/04/19/graphql/Graphql-Java实践(三)-异步执行/" itemprop="url">Graphql-Java实践(三)-异步执行.md</a></h1>
         
 
         <div class="post-meta">
@@ -1063,7 +1251,7 @@
 
           
           
-             <span id="/2018/04/19/Graphql-Java实践(三)-SpringBoot集成/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(三)-SpringBoot集成">
+             <span id="/2018/04/19/graphql/Graphql-Java实践(三)-异步执行/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(三)-异步执行.md">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1163,7 +1351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(四)-执行与自省/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/graphql/Graphql学习(四)-执行与自省/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -1182,7 +1370,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/19/Graphql学习(四)-执行与自省/" itemprop="url">Graphql学习(四)-执行与自省</a></h1>
+                <a class="post-title-link" href="/2018/04/19/graphql/Graphql学习(四)-执行与自省/" itemprop="url">Graphql学习(四)-执行与自省</a></h1>
         
 
         <div class="post-meta">
@@ -1234,7 +1422,7 @@
 
           
           
-             <span id="/2018/04/19/Graphql学习(四)-执行与自省/" class="leancloud_visitors" data-flag-title="Graphql学习(四)-执行与自省">
+             <span id="/2018/04/19/graphql/Graphql学习(四)-执行与自省/" class="leancloud_visitors" data-flag-title="Graphql学习(四)-执行与自省">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1356,7 +1544,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(三)-Schema和类型/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/graphql/Graphql学习(三)-Schema和类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -1375,7 +1563,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/19/Graphql学习(三)-Schema和类型/" itemprop="url">Graphql学习(三)-Schema和类型</a></h1>
+                <a class="post-title-link" href="/2018/04/19/graphql/Graphql学习(三)-Schema和类型/" itemprop="url">Graphql学习(三)-Schema和类型</a></h1>
         
 
         <div class="post-meta">
@@ -1427,7 +1615,7 @@
 
           
           
-             <span id="/2018/04/19/Graphql学习(三)-Schema和类型/" class="leancloud_visitors" data-flag-title="Graphql学习(三)-Schema和类型">
+             <span id="/2018/04/19/graphql/Graphql学习(三)-Schema和类型/" class="leancloud_visitors" data-flag-title="Graphql学习(三)-Schema和类型">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1565,7 +1753,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(二)-查询和变更/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/graphql/Graphql学习(二)-查询和变更/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -1584,7 +1772,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/19/Graphql学习(二)-查询和变更/" itemprop="url">Graphql学习(二)-查询和变更</a></h1>
+                <a class="post-title-link" href="/2018/04/19/graphql/Graphql学习(二)-查询和变更/" itemprop="url">Graphql学习(二)-查询和变更</a></h1>
         
 
         <div class="post-meta">
@@ -1636,7 +1824,7 @@
 
           
           
-             <span id="/2018/04/19/Graphql学习(二)-查询和变更/" class="leancloud_visitors" data-flag-title="Graphql学习(二)-查询和变更">
+             <span id="/2018/04/19/graphql/Graphql学习(二)-查询和变更/" class="leancloud_visitors" data-flag-title="Graphql学习(二)-查询和变更">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1765,7 +1953,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/Graphql学习(一)-介绍/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/19/graphql/Graphql学习(一)-介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -1784,7 +1972,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/19/Graphql学习(一)-介绍/" itemprop="url">Graphql学习(一)-GraphQL介绍</a></h1>
+                <a class="post-title-link" href="/2018/04/19/graphql/Graphql学习(一)-介绍/" itemprop="url">Graphql学习(一)-GraphQL介绍</a></h1>
         
 
         <div class="post-meta">
@@ -1836,7 +2024,7 @@
 
           
           
-             <span id="/2018/04/19/Graphql学习(一)-介绍/" class="leancloud_visitors" data-flag-title="Graphql学习(一)-GraphQL介绍">
+             <span id="/2018/04/19/graphql/Graphql学习(一)-介绍/" class="leancloud_visitors" data-flag-title="Graphql学习(一)-GraphQL介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1947,251 +2135,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/16/Graphql-调研/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zs Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/kirua.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zhou">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/16/Graphql-调研/" itemprop="url">Graphql 调研</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-16T21:00:02+08:00">
-                2018-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Graphql/" itemprop="url" rel="index">
-                    <span itemprop="name">Graphql</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/04/16/Graphql-调研/" class="leancloud_visitors" data-flag-title="Graphql 调研">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  2,721
-                </span>
-              
-
-              
-
-              
-            </div>
-          
-
-          
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="/images/graphql.png" alt=""></p>
-<h1 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h1><p>首先附上 <a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a> 及 对应的 <a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">JavaDoc地址</a><br>简单介绍一下背景，公司内部有很多B端运营类项目，由于后期的不断迭代，后端的Rest服务接口（Ajax）变得越来越多，恰好适逢前端重构，故领导想试试看能否使用对前端来说适应及使用性更便捷的Graphql来替换Rest。后端的重构就落到我这边了。</p>
-<h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><p>GraphQL可以在原本的前端-后端的调用链中添加一个中间层BFF，用来对后端微服务的数据进行集成。<br>BFF：Backend for Frontends(以下简称BFF) 顾名思义，是为前端而存在的后端(服务)中间层。即传统的前后端分离应用中，前端应用直接调用后端服务，后端服务再根据相关的业务逻辑进行数据的增删查改等。那么引用了 BFF 之后，前端应用将直接和 BFF 通信，BFF 再和后端进行 API 通信，所以本质上来说，BFF 更像是一种“中间层”服务。</p>
-<p>关于IDL（接口描述语言）以及Graphql的语法文档，大家还是看官网，这边简单的介绍一下</p>
-<h2 id="语言模式"><a href="#语言模式" class="headerlink" title="语言模式"></a>语言模式</h2><p>图语言，用<strong><em>“节点”</em></strong>和<strong><em>“关系”</em></strong>来描述一组数据结构，与常规数据库join的理念不同</p>
-<h2 id="操作分类"><a href="#操作分类" class="headerlink" title="操作分类"></a>操作分类</h2><p>query：查询<br>mutation：增删改</p>
-<h2 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h2><h3 id="Schema-GraphQLSchema："><a href="#Schema-GraphQLSchema：" class="headerlink" title="Schema/GraphQLSchema："></a>Schema/GraphQLSchema：</h3><p>定义所有可供查询的字段（field），它们最终组合成一套完整的GraphQL API<br>Schema相当于一个数据库，它有很多GraphQLFieldDefinition组成，Field相当于数据库表/视图，每个表/视图又由名称、查询参数、数据结构、数据组成。同时它定义了一个请求可以返回的数据格式与描述</p>
-<h3 id="Types"><a href="#Types" class="headerlink" title="Types"></a>Types</h3><p>GraphQL 类型系统支持以下类型</p>
-<ul>
-<li>Scalar/基础类型</li>
-<li>Object/GraphQLObjectType</li>
-<li>Interface/GraphQLInterfaceType</li>
-<li>Union/GraphQLUnionType</li>
-<li>InputObject/GraphQLInputObjectType //专门用于定义输入参数类型</li>
-<li>Enum/GraphQLEnumType</li>
-</ul>
-<h3 id="Scalar"><a href="#Scalar" class="headerlink" title="Scalar"></a>Scalar</h3><p>graphql-java 支持以下基本数据类型（ Scalars）</p>
-<ul>
-<li>GraphQLBoolean</li>
-<li>GraphQLInt</li>
-<li>GraphQLFloat</li>
-<li>GraphQLID</li>
-<li>GraphQLLong</li>
-<li>GraphQLShort</li>
-<li>GraphQLByte</li>
-<li>GraphQLFloat</li>
-<li>GraphQLBigDecimal</li>
-<li>GraphQLBigInteger</li>
-</ul>
-<h3 id="Object-GraphQLObjectType"><a href="#Object-GraphQLObjectType" class="headerlink" title="Object/GraphQLObjectType"></a>Object/GraphQLObjectType</h3><p>对象字段类型，定义了一个数据模型，类似数据表中的每一列的字段定义</p>
-<h3 id="Field-GraphQLFieldDefinition"><a href="#Field-GraphQLFieldDefinition" class="headerlink" title="Field/GraphQLFieldDefinition"></a>Field/GraphQLFieldDefinition</h3><p>字段类型定义，可用于对象类型中的字段设置，及请求对象上的特定字段（可根据该字段定义返回类型，匹配参数等）</p>
-<h3 id="Arguments-GraphQLArgument"><a href="#Arguments-GraphQLArgument" class="headerlink" title="Arguments/GraphQLArgument"></a>Arguments/GraphQLArgument</h3><p>每一个GraphQLFieldDefinition可提供的查询条件，可设置参数值，用于查询匹配</p>
-<h3 id="DataFetcher"><a href="#DataFetcher" class="headerlink" title="DataFetcher"></a>DataFetcher</h3><p>数据返回获取器，实现Field字段上的数据返回接口，可在environment中获取查询参数</p>
-<h3 id="DataFetchingEnvironment"><a href="#DataFetchingEnvironment" class="headerlink" title="DataFetchingEnvironment"></a>DataFetchingEnvironment</h3><p>数据获取上下文，可以拿到对应的查询参数</p>
-<h3 id="GraphQL-execute"><a href="#GraphQL-execute" class="headerlink" title="GraphQL.execute"></a>GraphQL.execute</h3><p>最终查询执行器<br>简易demo可参考范例<a href="https://blog.csdn.net/q15150676766/article/details/74618398" target="_blank" rel="noopener">graphql学习（四）GraphQL和SpringMVC 的整合</a></p>
-<h1 id="三、个人理解"><a href="#三、个人理解" class="headerlink" title="三、个人理解"></a>三、个人理解</h1><p>官网上看了一下Hello World的Demo和他人基于Graphql写的一些blog，简单总结了一些优缺点和使用上的疑问：</p>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
-<li>清晰的数据模型，字段强类型</li>
-<li>前端-按需获取，减少网络请求</li>
-<li>API迭代顺畅，无须版本化</li>
-<li>协议而非存储，对服务端数据进行组装过滤</li>
-</ul>
-<h2 id="Rest比较"><a href="#Rest比较" class="headerlink" title="Rest比较"></a>Rest比较</h2><ul>
-<li>数据获取：Rest缺乏扩展性，GraphQL获取时，payload可以扩展，按需获取</li>
-<li>API调用：Rest有多个endpoint，GraphQL在大多数情况下只有1个endpoint，只是body内容不同</li>
-<li>复杂请求：Rest需要多次，GraphQL一次调用，减少网络开销</li>
-<li>返回处理：Rest有多种httpCode及Status，GraphQL只有200响应，错误内容需要在结果集中特殊获取</li>
-<li>版本号：Rest使用V1、V2，GraphQL可根据Schema自行扩展</li>
-</ul>
-<p>可以看出，优点中大部分都是对前端开发有利，那后端改造的优势是什么呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层类似数据库的DDL+DML的抽象和封装。<br>Graphql使用了自身API构造了和数据库雷同的DDL，包含表结构（整体schema）、可查询字段（Field）、行列信息（Object），可变入参（Variable），形式极似Sql的select语句。但如此一来，在使用上就有以下的疑问了</p>
-<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><ul>
-<li>官网标榜的精确数据返回和一个请求如何实现？表面上看似返回的内容会随着请求实体变化，但实际上，由于无法确定前端查询的内容及参数，对于后端来说，还是需要获取全量的数据结果，只是在构建Graphql自己的“数据库”时定义不同的查询schema罢了。原先的“select a，b”，在Graphql上不就变成了“select * ” ？ 这样对数据库及其他内部服务的压力必然会增大，内存&amp;缓存解决？</li>
-<li>其次，对于一个完整的系统，Graphql要求的数据模型必然需要对业务精确的理解，需要提前定义完整的数据结构，每一个返回的实体都必须单独定义一个Schema及配套的查询方法。这样才能准确的定义服务端的Schema，供前端使用。</li>
-<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊，由于开放了“select *”的功能，是否会造成全量的字段查询导致数据暴露</li>
-<li>文档比较匮乏，使用案例也较少</li>
-</ul>
-<h1 id="四、实践"><a href="#四、实践" class="headerlink" title="四、实践"></a>四、实践</h1><p>两种定义schema的方法</p>
-<ul>
-<li>Java</li>
-<li>IDL</li>
-</ul>
-<p>Example：实际使用的时候有一点需要注意，许多官网例子中一些方法都是import static方式引入的Class，有些方法在idea中很难搜到。大GraphQL中的对象构造方式大多都是建造者模式，也是Effect java中推荐的多参数的对象构造方式，大家可以自己看一下</p>
-<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> graphql.Scalars.GraphQLString;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> graphql.schema.AsyncDataFetcher.async;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> graphql.schema.GraphQLArgument.newArgument;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> graphql.schema.GraphQLFieldDefinition.newFieldDefinition;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> graphql.schema.GraphQLObjectType.newObject;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> graphql.schema.idl.RuntimeWiring.newRuntimeWiring;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设现在有 user pojo ，dog pojo，user中有list[dog],类似一对多的关系</span></span><br><span class="line"><span class="comment">//自定义用户类型 及 字段</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> GraphQLObjectType <span class="title">getUserType</span><span class="params">()</span></span>&#123;</span><br><span class="line">    GraphQLObjectType userType = newObject()</span><br><span class="line">            .name(<span class="string">"user"</span>)</span><br><span class="line">            .field(newFieldDefinition().name(<span class="string">"id"</span>).type(Scalars.GraphQLInt).build())</span><br><span class="line">            .field(newFieldDefinition().name(<span class="string">"age"</span>).type(Scalars.GraphQLInt).build())</span><br><span class="line">            .field(newFieldDefinition().name(<span class="string">"userName"</span>).type(GraphQLString).build())</span><br><span class="line">            .field(newFieldDefinition().name(<span class="string">"dogs"</span>).type(<span class="keyword">new</span> GraphQLList(getDogType())).build())</span><br><span class="line">            .build();</span><br><span class="line">    <span class="keyword">return</span> userType;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//dog type</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> GraphQLObjectType <span class="title">getDogType</span><span class="params">()</span></span>&#123;</span><br><span class="line">    GraphQLObjectType dogType = newObject()</span><br><span class="line">            .name(<span class="string">"dog"</span>)</span><br><span class="line">            .field(newFieldDefinition().name(<span class="string">"id"</span>).type(Scalars.GraphQLInt).build())</span><br><span class="line">            .field(newFieldDefinition().name(<span class="string">"dogName"</span>).type(GraphQLString).build())</span><br><span class="line">            .build();</span><br><span class="line">    <span class="keyword">return</span> dogType;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//定义一个查询Field 字段 及可查询参数与返回值类型 &amp; 一个数据获取器 dataFetch</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> GraphQLFieldDefinition <span class="title">userQuery</span><span class="params">()</span></span>&#123;</span><br><span class="line">    DataFetcher userDataFetcher = async(environment -&gt; &#123;</span><br><span class="line">        <span class="comment">// 获取查询参数</span></span><br><span class="line">        Integer id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">        Integer start = environment.getArgument(<span class="string">"start"</span>);</span><br><span class="line">        Integer limit = environment.getArgument(<span class="string">"limit"</span>);</span><br><span class="line">        System.out.println(<span class="string">"GraphQLFieldDefinition query ,id = "</span> + id</span><br><span class="line">                + <span class="string">" ,start = "</span>+start+ <span class="string">" ,limit="</span>+limit);</span><br><span class="line">        <span class="comment">// 执行查询, 这里随便用一些测试数据来说明问题</span></span><br><span class="line">        <span class="comment">//getObj 自己组装List user 数据</span></span><br><span class="line">        List&lt;User&gt; result = getObj();</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> GraphQLFieldDefinition.newFieldDefinition()</span><br><span class="line">            .name(<span class="string">"users"</span>)</span><br><span class="line">            .argument(newArgument().name(<span class="string">"id"</span>).type(<span class="keyword">new</span> GraphQLNonNull(Scalars.GraphQLInt)).build())</span><br><span class="line">            .argument(newArgument().name(<span class="string">"start"</span>).type(Scalars.GraphQLInt).build())</span><br><span class="line">            .argument(newArgument().name(<span class="string">"limit"</span>).type(Scalars.GraphQLInt).build())</span><br><span class="line">            .type(<span class="keyword">new</span> GraphQLList(getUserType()))</span><br><span class="line">            .dataFetcher(userDataFetcher)</span><br><span class="line">            .build();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//schema 定义 ，绑定 userQuery这个字段的请求查询</span></span><br><span class="line">GraphQLSchema schema = GraphQLSchema.newSchema().query(newObject()</span><br><span class="line">            .name(<span class="string">"GraphQuery"</span>)</span><br><span class="line">            .field(userQuery())</span><br><span class="line">            .build()).build();</span><br><span class="line"><span class="comment">//执行处理器，采用Future的方式异步获取查询结果，可使用JAVA8的lambda函数x</span></span><br><span class="line">GraphQL graphQL = GraphQL.newGraphQL(schema).queryExecutionStrategy(<span class="keyword">new</span> AsyncExecutionStrategy())</span><br><span class="line">            .mutationExecutionStrategy(<span class="keyword">new</span> AsyncSerialExecutionStrategy()).build();</span><br><span class="line">    ExecutionInput executionInput = ExecutionInput.newExecutionInput().query(query1).build();</span><br><span class="line">    CompletableFuture&lt;ExecutionResult&gt; promise = graphQL.executeAsync(executionInput);</span><br><span class="line">    <span class="comment">//ExecutionResult executionResult = graphQL.execute(executionInput);</span></span><br><span class="line">    <span class="comment">//promise.join();</span></span><br><span class="line">    Future&lt;ExecutionResult&gt; f = promise.whenComplete((v, e) -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"Future: result "</span> + v.getData());</span><br><span class="line">        System.out.println(<span class="string">"Error: result "</span> + v.getErrors());</span><br><span class="line">        System.out.println(<span class="string">"Ex: result "</span> + v.getExtensions());</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;);</span><br><span class="line">    promise.thenAccept(executionResult -&gt; &#123;</span><br><span class="line">        <span class="comment">// here you might send back the results as JSON over HTTP</span></span><br><span class="line">        System.out.println(<span class="string">"Future: result "</span> + executionResult.getData());</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread.sleep(<span class="number">10000</span>);</span><br></pre></td></tr></table></figure>
-<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GraphQLFieldDefinition query ,id = 2 ,start = 5 ,limit=10</span><br><span class="line">[graphql.User@400989ba]</span><br><span class="line">Future: result &#123;users=[&#123;id=1, userName=2854bfbf-7037-4854-a470-53360b49f1fb, dogs=[&#123;id=100, dogName=Dog52bef01d-99d8-4712-afaa-c046d61976ab&#125;]&#125;]&#125;</span><br><span class="line">Error: result []</span><br><span class="line">Ex: result null</span><br><span class="line">Future: result &#123;users=[&#123;id=1, userName=2854bfbf-7037-4854-a470-53360b49f1fb, dogs=[&#123;id=100, dogName=Dog52bef01d-99d8-4712-afaa-c046d61976ab&#125;]&#125;]&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="IDL"><a href="#IDL" class="headerlink" title="IDL"></a>IDL</h2><p>users.graphqls（编译后在classpath下）<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query: GraphQuery2</span><br><span class="line">&#125;</span><br><span class="line">type GraphQuery2 &#123;</span><br><span class="line">    users(id: Int,start: Int,limit: Int): [User]</span><br><span class="line">&#125;</span><br><span class="line">type User &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs: [Dog]</span><br><span class="line">&#125;</span><br><span class="line">type Dog &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    dogName: String!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>java代码（之前对于user，dog的对象类型定义都可以去除，请求Field及schema同样也可以不要）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载classpath下的IDL文件</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> File <span class="title">loadSchema</span><span class="params">(<span class="keyword">final</span> String s)</span> </span>&#123;</span><br><span class="line">        System.out.println(GraphqlTest2.class.getClassLoader().getResource(<span class="string">"graphql/users.graphqls"</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> File(GraphqlTest2.class.getClassLoader().getResource(s).getFile());</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> DataFetcher userDataFetcher = async(environment -&gt; &#123;</span><br><span class="line">    <span class="comment">// 获取查询参数</span></span><br><span class="line">    Integer id = environment.getArgument(<span class="string">"id"</span>);</span><br><span class="line">    Integer start = environment.getArgument(<span class="string">"start"</span>);</span><br><span class="line">    Integer limit = environment.getArgument(<span class="string">"limit"</span>);</span><br><span class="line">    System.out.println(<span class="string">"GraphQLFieldDefinition query ,id = "</span> + id</span><br><span class="line">            + <span class="string">" ,start = "</span>+start+ <span class="string">" ,limit="</span>+limit);</span><br><span class="line">    <span class="comment">// 执行查询, 这里随便用一些测试数据来说明问题</span></span><br><span class="line">    List&lt;User&gt; result = getObj();</span><br><span class="line">    System.out.println(result);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//运行环境构建，同时注册一个schema查询及对应的field获取器</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> RuntimeWiring <span class="title">buildRuntimeWiring</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//return RuntimeWiring.newRuntimeWiring().wiringFactory(new EchoingWiringFactory()).build();</span></span><br><span class="line">    <span class="keyword">return</span> RuntimeWiring.newRuntimeWiring()</span><br><span class="line">                    <span class="comment">// this uses builder function lambda syntax</span></span><br><span class="line">            .type(<span class="string">"GraphQuery2"</span>, typeWiring -&gt; typeWiring</span><br><span class="line">                            .dataFetcher(<span class="string">"users"</span>, userDataFetcher)</span><br><span class="line">            ).build();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    SchemaParser schemaParser = <span class="keyword">new</span> SchemaParser();</span><br><span class="line">    SchemaGenerator schemaGenerator = <span class="keyword">new</span> SchemaGenerator();</span><br><span class="line">    File schemaFile = loadSchema(<span class="string">"graphql/users.graphqls"</span>);</span><br><span class="line">    TypeDefinitionRegistry typeRegistry = schemaParser.parse(schemaFile);</span><br><span class="line">    RuntimeWiring wiring = buildRuntimeWiring();</span><br><span class="line">    <span class="comment">//等同于java构建schema的mainExec方法</span></span><br><span class="line">    GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, wiring);</span><br><span class="line">    <span class="comment">//$xxx 使用了查询变量，在执行实际查询时可以传入实际的variable进行替换（Map），同时在fetch数据时，在environment中获取，供持久层使用</span></span><br><span class="line">    String query1 = <span class="string">"query GraphQuery2($testUserId:Int) &#123;users(id:$testUserId,start:5,limit:10) "</span> +</span><br><span class="line">            <span class="string">" &#123;id,userName,dogs&#123;id,dogName&#125;&#125;&#125;"</span>;</span><br><span class="line">    GraphQL graphQL = GraphQL.newGraphQL(graphQLSchema).queryExecutionStrategy(<span class="keyword">new</span> AsyncExecutionStrategy())</span><br><span class="line">            .mutationExecutionStrategy(<span class="keyword">new</span> AsyncSerialExecutionStrategy()).build();</span><br><span class="line">    Map&lt;String,Object&gt; variable = Maps.newHashMap();</span><br><span class="line">    variable.put(<span class="string">"testUserId"</span>,<span class="number">12345</span>);</span><br><span class="line">    <span class="comment">//graphQL.execute(query, null, null, variables); deprecated</span></span><br><span class="line">    ExecutionInput executionInput = ExecutionInput.newExecutionInput().variables(variable).query(query1).build();</span><br><span class="line">    CompletableFuture&lt;ExecutionResult&gt; promise = graphQL.executeAsync(executionInput);</span><br><span class="line">    <span class="comment">//ExecutionResult executionResult = graphQL.execute(executionInput);</span></span><br><span class="line">    <span class="comment">//promise.join();</span></span><br><span class="line">    Future&lt;ExecutionResult&gt; f = promise.whenComplete((v, e) -&gt; &#123;</span><br><span class="line">        System.out.println(<span class="string">"Future: result "</span> + v.getData());</span><br><span class="line">        System.out.println(<span class="string">"Error: result "</span> + v.getErrors());</span><br><span class="line">        System.out.println(<span class="string">"Ex: result "</span> + v.getExtensions());</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;);</span><br><span class="line">    promise.thenAccept(executionResult -&gt; &#123;</span><br><span class="line">        <span class="comment">// here you might send back the results as JSON over HTTP</span></span><br><span class="line">        System.out.println(<span class="string">"Future: result "</span> + executionResult.getData());</span><br><span class="line">    &#125;);</span><br><span class="line">    Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出结果与JAVA方式一致<br>结论：可以看到，IDL中可以将schema的query名称、自定义对象类型、schema内的请求查询Field统一包括，对比Java定义的方式节省很多代码及工作量，而且定义好的文件也可供前端参考。</p>
-<h3 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h3><ul>
-<li>异常处理&amp;参数校验</li>
-<li>SpringBoot集成</li>
-<li>数据变更mutation尝试</li>
-</ul>
-<h1 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h1><p>总结一下整个流程，基本上就是<br><strong>定义GrapQL数据类型 -&gt; 定义暴露给客户端的query api和mutaion api -&gt; 创建GraphQL Schema</strong></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://www.ayqy.net/blog/graphql/" target="_blank" rel="noopener">GraphQL</a><br><a href="https://segmentfault.com/a/1190000012119468" target="_blank" rel="noopener">官方文档翻译</a><br><a href="https://zhuanlan.zhihu.com/p/35108457" target="_blank" rel="noopener">微服务下使用GraphQL构建BFF</a><br><a href="https://blog.csdn.net/q15150676766/article/details/74618398" target="_blank" rel="noopener">GraphQL和SpringMVC 的整合</a><br><a href="https://zhuanlan.zhihu.com/p/28962262" target="_blank" rel="noopener">GraphQL这个坑可以入了</a><br><a href="http://www.zhaiqianfeng.com/2017/06/learn-graphql-action-by-java.html" target="_blank" rel="noopener">GraphQL+Java实战</a><br><a href="https://www.programcreek.com/java-api-examples/?api=graphql.schema.idl.SchemaGenerator" target="_blank" rel="noopener">Java Code Examples for graphql.schema.idl.SchemaGenerator</a><br><a href="https://www.programcreek.com/java-api-examples/?code=rylitalo/graphql-with-springboot-jpa-example/graphql-with-springboot-jpa-example-master/src/main/java/com/byteperceptions/graphqldemo/graphql/GraphQLQueryController.java#" target="_blank" rel="noopener">SpringMVC+graphql Demo</a><br><a href="https://www.programcreek.com/java-api-examples/?code=ERS-HCL/cart-cqrs-demo/cart-cqrs-demo-master/cart-query/src/main/java/com/onefoundation/cqrsdemo/cartquery/graphql/CartSchemaBuilder.java#" target="_blank" rel="noopener">Demo2</a><br><a href="https://blog.csdn.net/qq362228416/article/details/50854980" target="_blank" rel="noopener">Demo3</a><br><a href="https://github.com/zhaiqianfeng/GraphQL-Demo/blob/master/java/src/main/java/com/zqf/advance/GraphQL_interface.java" target="_blank" rel="noopener">Interface使用Demo</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2246,7 +2189,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2346,7 +2289,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10.6k字</span>
+  <span class="post-count">博客全站共13.0k字</span>
 </div>
 
         
