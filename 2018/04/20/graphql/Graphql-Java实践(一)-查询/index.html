@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Zhou">
 <meta property="og:description" content="对于服务端来说，核心就是定义Schema，组合成一套对外提供的APIGraphQL-Java提供两种方法来定义Schema  Java代码定义 GraphQL SDL（IDL）定义  Java简单查询说明一下，GraphQL-Java需要Java8支持，会频繁使用Lambda表达式，这边直接上实例先来一个java的例子：maven依赖：12345&amp;lt;dependency&amp;gt;    &amp;lt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-23T16:04:00.386Z">
+<meta property="og:updated_time" content="2018-04-23T16:07:23.733Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphql-Java实践(一)-查询">
 <meta name="twitter:description" content="对于服务端来说，核心就是定义Schema，组合成一套对外提供的APIGraphQL-Java提供两种方法来定义Schema  Java代码定义 GraphQL SDL（IDL）定义  Java简单查询说明一下，GraphQL-Java需要Java8支持，会频繁使用Lambda表达式，这边直接上实例先来一个java的例子：maven依赖：12345&amp;lt;dependency&amp;gt;    &amp;lt;">
@@ -416,7 +416,7 @@
 <p>当面临需要获取用户态、权限等全局环境变量的时候，Context就会变得很有用，可以帮助我们在整个GraphQL引擎执行的过程中，让每一个Field的DataFetcher获取并加以处理。</p>
 <p>通过上面的几个例子大家可以发现，通过读取IDL解析定义Schema在代码量和可读性方面都比使用Java来定义好很多，推荐使用。<br><strong>其次，每一个在Schema中定义的type都可以对内部的字段Field定义相应的DataFetcher，并且次级Field可以获取上级Field已获得的结果，就像dogs中获取父对象User实例一样，同时可以自定义自己的返回值，而不是使用默认的PropertyDataFetcher读取pojo对应属性的get/set值。</strong></p>
 <p>后面在异步篇章会介绍一下在获取数据这块能否有性能更加或者更优化的方案，解决后端数据可能造成的N+1的问题以及潜在的嵌套查询。</p>
-<p><strong>4月23日更新，还是IDL定义Schema的例子，今天试验了一下只保留暴露给外部使用的顶层的Field API的获取逻辑，发现就算不对自定义类型编写自定义的DataFetcher，使用默认的PropertyDataFetcher也能正常查询，甚至针对IDL文件中需要参数的Field，也可以不用专门去定义DataFetcher，默认的也可以应对所有的查询Query（这一点和Java定义Schema很不同），只是不处理传入的Arguments，返回顶层对象中的所有数据罢了。</strong></p>
+<p><strong>4月23日更新：还是IDL定义Schema的例子，今天试验了一下只保留暴露给外部使用的顶层的Field API的获取逻辑，发现就算不对自定义类型编写自定义的DataFetcher，使用默认的PropertyDataFetcher也能正常查询，甚至针对IDL文件中需要参数的Field，也可以不用专门去定义DataFetcher，默认的也可以应对所有的查询Query（这一点和Java定义Schema很不同），只是不处理传入的Arguments，返回顶层对象中的所有数据罢了。</strong></p>
 <hr>
 
       
