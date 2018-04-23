@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="开门见山，谈一谈我这一个星期的对GraphQL的认识： Schema定义的理解刚开始认为，暴露给外部的API类似Java类中的方法，忽视了其实API和自定义类在GraphQL中都是自定义Type。而对方法的定义其实都是对字段的定义，类似Pojo中的属性。123456789101112schema &amp;#123;    query: userQuery&amp;#125;type userQuery &amp;#12">
+<meta name="description" content="这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势 GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。以上内容摘抄自官网。简单说一下我的理解：">
 <meta name="keywords" content="Graphql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Graphql-Java实践(零)-我的理解">
-<meta property="og:url" content="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/index.html">
+<meta property="og:title" content="Graphql学习(一)-GraphQL介绍">
+<meta property="og:url" content="http://yoursite.com/2018/04/17/graphql/Graphql学习(一)-介绍/index.html">
 <meta property="og:site_name" content="Zhou">
-<meta property="og:description" content="开门见山，谈一谈我这一个星期的对GraphQL的认识： Schema定义的理解刚开始认为，暴露给外部的API类似Java类中的方法，忽视了其实API和自定义类在GraphQL中都是自定义Type。而对方法的定义其实都是对字段的定义，类似Pojo中的属性。123456789101112schema &amp;#123;    query: userQuery&amp;#125;type userQuery &amp;#12">
+<meta property="og:description" content="这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势 GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。以上内容摘抄自官网。简单说一下我的理解：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-23T07:27:31.834Z">
+<meta property="og:image" content="http://yoursite.com/images/graphql.png">
+<meta property="og:updated_time" content="2018-04-23T15:03:56.093Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Graphql-Java实践(零)-我的理解">
-<meta name="twitter:description" content="开门见山，谈一谈我这一个星期的对GraphQL的认识： Schema定义的理解刚开始认为，暴露给外部的API类似Java类中的方法，忽视了其实API和自定义类在GraphQL中都是自定义Type。而对方法的定义其实都是对字段的定义，类似Pojo中的属性。123456789101112schema &amp;#123;    query: userQuery&amp;#125;type userQuery &amp;#12">
+<meta name="twitter:title" content="Graphql学习(一)-GraphQL介绍">
+<meta name="twitter:description" content="这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势 GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。以上内容摘抄自官网。简单说一下我的理解：">
+<meta name="twitter:image" content="http://yoursite.com/images/graphql.png">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/17/graphql/Graphql学习(一)-介绍/"/>
 
 
 
 
 
-  <title>Graphql-Java实践(零)-我的理解 | Zhou</title>
+  <title>Graphql学习(一)-GraphQL介绍 | Zhou</title>
   
 
 
@@ -263,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/17/graphql/Graphql学习(一)-介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zs Zhou">
@@ -280,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Graphql-Java实践(零)-我的理解</h1>
+          <h1 class="post-title" itemprop="name headline">Graphql学习(一)-GraphQL介绍</h1>
         
 
         <div class="post-meta">
@@ -292,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-22T10:50:02+08:00">
-                2018-04-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T10:50:02+08:00">
+                2018-04-17
               </time>
             
 
@@ -332,7 +334,7 @@
 
           
           
-             <span id="/2018/04/22/graphql/Graphql-Java实践(零)-我的理解/" class="leancloud_visitors" data-flag-title="Graphql-Java实践(零)-我的理解">
+             <span id="/2018/04/17/graphql/Graphql学习(一)-介绍/" class="leancloud_visitors" data-flag-title="Graphql学习(一)-GraphQL介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -357,7 +359,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  651
+                  926
                 </span>
               
 
@@ -381,17 +383,31 @@
       
 
       
-        <p>开门见山，谈一谈我这一个星期的对GraphQL的认识：</p>
-<h2 id="Schema定义的理解"><a href="#Schema定义的理解" class="headerlink" title="Schema定义的理解"></a>Schema定义的理解</h2><p>刚开始认为，暴露给外部的API类似Java类中的方法，忽视了其实API和自定义类在GraphQL中都是自定义Type。而对方法的定义其实都是对字段的定义，类似Pojo中的属性。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query: userQuery</span><br><span class="line">&#125;</span><br><span class="line">type userQuery &#123;</span><br><span class="line">    selectUsers(id: Int): [User]</span><br><span class="line">&#125;</span><br><span class="line">type User &#123;</span><br><span class="line">    id: Int</span><br><span class="line">    age: Int</span><br><span class="line">    userName: String!</span><br><span class="line">    dogs(dogId:Int): [Dog]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>拿这个例子来说，<strong>id:Int</strong> 和 <strong>selectUsers(id: Int): [User]</strong> 其实没有本质性的区别，都是这样的格式：<br><strong>“Field”（Arguments）-可省略 ：Type（标量类型或自定义类型）</strong>，这样一看，结合官方说的DataFetcher、TypeResolver、Arguments只能放在Field上，我也就能释然了。<br>另外，查看别人Demo的时候经常看到如下IDL定义：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">type Query&#123;</span><br><span class="line">    Field A</span><br><span class="line">    Field B</span><br><span class="line">&#125;</span><br><span class="line">type Mutation&#123;</span><br><span class="line">    Field C</span><br><span class="line">    Field C</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>省略了<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query:xxxx</span><br><span class="line">    mutation:yyyy</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>后来了解到原来Schema中 <strong>Query</strong> 和 <strong>Mutation</strong> 是默认的注册Type名，所以可以省去schema：xxxx的定义<br>Default：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">schema &#123;</span><br><span class="line">    query:Query</span><br><span class="line">    mutation:Mutation</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="一些参考"><a href="#一些参考" class="headerlink" title="一些参考"></a>一些参考</h2><p>学习的过程中，因为官方文档的不完整，网上参考了许多第三方的代码和实现方式，帮助了我很多：<br><a href="http://blog.mygraphql.com/wordpress/?p=102" target="_blank" rel="noopener">GraphQL中文网</a>：翻译了官方的GraphQL-Java的文档<br><a href="https://github.com/zhaiqianfeng/GraphQL-Demo/blob/master/java/src/main/java/com/zqf/advance/GraphQL_argument.java" target="_blank" rel="noopener">GitHub代码</a>：使用Java定义Schema执行Query和Mutation，研究Mutation中Variable传递的时候见解了很多<br><a href="https://my.oschina.net/genghz/blog/1789240" target="_blank" rel="noopener">SpringBoot集合</a>：发现了一些大神们的封装的依赖，<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- graphql --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.graphql-java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>graphql-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.graphql-java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>graphql-java-tools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>粗略看了一下，解决了DataFetcher与Field的绑定，通过Schema中Type名与封装实现类的内部Method名进行动态绑定，省去在构建Schema前的很多步骤，之后会深入研究一下<br><a href="https://www.programcreek.com/java-api-examples/?code=rylitalo/graphql-with-springboot-jpa-example/graphql-with-springboot-jpa-example-master/src/main/java/com/byteperceptions/graphqldemo/graphql/GraphQLQueryController.java" target="_blank" rel="noopener">Web集成代码1</a><br><a href="https://www.programcreek.com/java-api-examples/?code=ERS-HCL/cart-cqrs-demo/cart-cqrs-demo-master/cart-query/src/main/java/com/onefoundation/cqrsdemo/cartquery/graphql/CartSchemaBuilder.java" target="_blank" rel="noopener">Web集成代码2</a>：都是很好的参考。</p>
-<h3 id="第三方工具包"><a href="#第三方工具包" class="headerlink" title="第三方工具包"></a>第三方工具包</h3><p>项目中使用的都是GraphqL Java基础包，后来在查看别人的项目实例时，发现GraphQL-Java官方还推出了一个工具包，可以帮助我们映射Schema文件到Java的Pojo上。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.graphql-java<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>graphql-java-tools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><a href="https://github.com/graphql-java/graphql-java-tools" target="_blank" rel="noopener">HomePage</a><br>这个工具包实现了将所有的Schema中定义的type的字段Field与某一个Java类中的方法名进行绑定（即不用自己做手动映射了），方便了许多，大家可以自己看一下Example。</p>
-<hr>
-<p>未完待续、、、</p>
+        <p><img src="/images/graphql.png" alt=""><br>这一篇简单介绍一下GraphQL的概念及可以帮助我们解决什么问题，并有什么优势</p>
+<p>GraphQL：既是一种用于 API 的查询语言也是一个满足你数据查询的运行时。 GraphQL 对你的 API 中的数据提供了一套易于理解的完整描述，使得客户端能够准确地获得它需要的数据，而且没有任何冗余，也让 API 更容易地随着时间推移而演进，还能用于构建强大的开发者工具。<br>以上内容摘抄自官网。简单说一下我的理解：可以说是Web服务的一种新的架构和规范，并且在FaceBook、gitHub、Twitter中均已使用。对比现在业务使用的Restful来说，有下列优势：</p>
+<ul>
+<li>单endpoint：一个请求获取所有数据，解决RestAPI多个请求获取资源的问题</li>
+<li>清晰的数据模型，字段强类型</li>
+<li>按需获取，减少网络请求，无冗余</li>
+<li>API迭代顺畅，无须版本化</li>
+<li>协议而非存储，对服务端数据进行组装过滤</li>
+</ul>
+<h2 id="Rest比较"><a href="#Rest比较" class="headerlink" title="Rest比较"></a>Rest比较</h2><ul>
+<li>数据获取：Rest缺乏扩展性，GraphQL获取时，payload可以扩展，按需获取</li>
+<li>API调用：Rest有多个endpoint，GraphQL在大多数情况下只有1个endpoint，只是body内容不同</li>
+<li>复杂请求：Rest需要多次，GraphQL一次调用，减少网络开销</li>
+<li>返回处理：Rest有多种httpCode及Status，GraphQL只有200响应，错误内容需要在结果集中特殊获取</li>
+<li>版本号：Rest使用V1、V2，GraphQL可根据Schema自行扩展</li>
+</ul>
+<p>可以看出，GraphQL对前端开发来说帮助巨大，减少了很多工作量。但为了配合使用，服务器端需要怎么协同，并有什么好处呢？简单看了几个例子后发现，后端如果使用Graphql重构，就相当于服务层做了一层使用GraphQL引擎对已获取的结果数据再做一次包装。</p>
+<h2 id="自己的理解"><a href="#自己的理解" class="headerlink" title="自己的理解"></a>自己的理解</h2><ul>
+<li>可以预见，服务端在改造时，数据获取层不会有太大的工作量，但由于只有一个endpoint，在业务逻辑层可能需要拼接原来多个接口返回的数据。比如个人主页的访问，原本需要a请求返回个人信息，b请求返回朋友关系。在GraphQL的架构中，需要将a、b请求的数据在服务端合并，并使用GaphQL引擎构建运行时，对外提供接口c。这样就意味着c接口需要承担a、b两个请求的查询量，性能方面是否会有瓶颈？</li>
+<li>其次，对于数据模型的定义务必精确，哪些字段可以被查询，哪些需要有请求参数，还有分页等都需要考虑。</li>
+<li>对于数据校验、用户权限及数据安全性来说解决方案也比较模糊。因为整体的请求返回需要GraphQL引擎来处理，所以原本一些过滤器拦截器的方案可能被替代，需要业务层来完整处理应对。</li>
+<li>GraphQL-Java的文档较少，而且官网上的一些demo也无法运行，前期调研成本较大</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过对官网的浏览，对后端来说，并没有觉得有什么很明显的优势。但对前端或者整个项目来说，提升还是挺明显的，具体效果等实际应用了以后再看吧。后面几章会介绍一下GraphQL的语法，并使用GraphQL-java做一些服务器端的Demo及数据模型的创建。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="http://graphql.cn/" target="_blank" rel="noopener">Graphsql中文官网地址</a><br><a href="http://graphql-java.readthedocs.io/en/stable/getting_started.html" target="_blank" rel="noopener">Graphsql-Java文档</a><br><a href="https://segmentfault.com/a/1190000012119468" target="_blank" rel="noopener">Graphsql-Java官方文档翻译</a></p>
 
       
     </div>
@@ -422,8 +438,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/21/graphql/Graphql-Java实践(三)-工具类graphql-java-tools/" rel="next" title="Graphql-Java实践(三)-工具类graphql-java-tools">
-                <i class="fa fa-chevron-left"></i> Graphql-Java实践(三)-工具类graphql-java-tools
+              <a href="/2018/04/16/graphql/Graphql-调研/" rel="next" title="Graphql 调研">
+                <i class="fa fa-chevron-left"></i> Graphql 调研
               </a>
             
           </div>
@@ -431,6 +447,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/graphql/Graphql学习(二)-查询和变更/" rel="prev" title="Graphql学习(二)-查询和变更">
+                Graphql学习(二)-查询和变更 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -587,7 +607,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Schema定义的理解"><span class="nav-number">1.</span> <span class="nav-text">Schema定义的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些参考"><span class="nav-number">2.</span> <span class="nav-text">一些参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第三方工具包"><span class="nav-number">2.1.</span> <span class="nav-text">第三方工具包</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rest比较"><span class="nav-number">1.</span> <span class="nav-text">Rest比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自己的理解"><span class="nav-number">2.</span> <span class="nav-text">自己的理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
             
 
           </div>
