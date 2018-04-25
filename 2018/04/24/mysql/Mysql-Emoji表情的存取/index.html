@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Zhou">
 <meta property="og:description" content="日前，在项目中遇到了一个很尴尬的问题，首先贴上一些背景和概况；Mysql版本：5.6.24-72.2-log字符集：1234567891011121314151617181920212223242526272829mysql&amp;gt; SHOW VARIABLES WHERE Variable_name LIKE &apos;character_set_%&apos; OR Variable_name LIKE &apos;co">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-24T08:39:38.450Z">
+<meta property="og:updated_time" content="2018-04-25T10:59:38.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql-Emoji表情的存取">
 <meta name="twitter:description" content="日前，在项目中遇到了一个很尴尬的问题，首先贴上一些背景和概况；Mysql版本：5.6.24-72.2-log字符集：1234567891011121314151617181920212223242526272829mysql&amp;gt; SHOW VARIABLES WHERE Variable_name LIKE &apos;character_set_%&apos; OR Variable_name LIKE &apos;co">
@@ -357,7 +357,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  984
+                  1,036
                 </span>
               
 
@@ -393,6 +393,7 @@
 <p>我们的问题就在这里，链接字符串中有characterEncoding=UTF-8，并且我们的数据库character_set_server也是UTF-8，所以导致全程使用了UTF-8的编码集来处理链接及数据请求，而5.1.13的自动适配反而帮助我们搞定了emoji的存储。</p>
 <hr>
 <p>以上都是个人见解，不保证正确性~~~</p>
+<p><strong>4月25日更新，经DBA与开发验证：</strong><br>Mysql5.6 + connector5.1.34+ + 字段utf8mb4 + 连接池 set names utf8mb4 = 可以成功插入emoji表情<br>5.1.13 会强制 set names utf8mb4 ，不需要更改连接池；</p>
 
       
     </div>
@@ -425,8 +426,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/24/graphql/Graphql-Java实践(四)-异步执行/" rel="next" title="Graphql-Java实践(三)-异步执行.md">
-                <i class="fa fa-chevron-left"></i> Graphql-Java实践(三)-异步执行.md
+              <a href="/2018/04/23/graphql/Graphql-Java实践(三)-工具类graphql-java-tools/" rel="next" title="Graphql-Java实践(三)-工具类graphql-java-tools">
+                <i class="fa fa-chevron-left"></i> Graphql-Java实践(三)-工具类graphql-java-tools
               </a>
             
           </div>
@@ -435,8 +436,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/25/graphql/Graphql-Java实践(五)-SpringBoot集成/" rel="prev" title="Graphql-Java实践(五)-SpringBoot集成">
-                Graphql-Java实践(五)-SpringBoot集成 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/24/graphql/Graphql-Java实践(四)-异步执行/" rel="prev" title="Graphql-Java实践(三)-异步执行.md">
+                Graphql-Java实践(三)-异步执行.md <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -514,7 +515,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -525,7 +526,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -536,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -614,7 +615,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共16.8k字</span>
+  <span class="post-count">博客全站共16.9k字</span>
 </div>
 
         
